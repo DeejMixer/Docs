@@ -1,0 +1,198 @@
+---
+title: "Plugins Overview"
+description: "Extend Mixlar Mix with experimental plugins that enhance and personalize your experience."
+---
+
+# Plugins Overview
+
+Plugins let you extend what Mixlar Mix can do beyond the core features.  
+They are currently **experimental** and are focused on improving the user experience and making your setup feel tailored to how you work, create, or play.
+
+<Info>
+  Plugins are considered <strong>experimental</strong>.  
+  Their features and behavior may change between updates as we continue refining the system.
+</Info>
+
+---
+
+## What Are Plugins?
+
+Plugins allow Mixlar Control to integrate with external apps, services, and custom workflows.  
+They can:
+
+- Add new ways to control your mixer  
+- Provide overlays and dashboards  
+- Connect Mixlar to creative tools and automations  
+- Enable remote control features like the Web Viewer or iOS app  
+- Display live feedback on your PC  
+
+You can manage plugins under:
+
+**Settings → Plugins**
+
+---
+
+# Core Plugins
+
+These are the main plugins available today. Additional plugins will be added over time.
+
+<Columns cols={3}>
+
+  <Card title="Web Controller" icon="globe" href="/plugins/web-controller">
+    Enables the Web Viewer, iOS app connectivity, remote sliders, profiles, widgets, and HTTPS/Tailscale access.
+  </Card>
+
+  <Card title="Mixer Overlay" icon="display" href="/plugins/mixer-overlay">
+    Shows live slider movement and mixer events directly on your PC screen with full customization options.
+  </Card>
+
+  <Card title="Adobe Creative Cloud" icon="brush" href="/plugins/adobe-cc">
+    Integrates Mixlar Mix with Adobe apps for timeline, editing, and workflow controls.
+  </Card>
+
+</Columns>
+
+---
+
+# Web Controller Plugin
+
+The **Web Controller** plugin powers:
+
+- The **Mixlar Web Viewer** (browser-based remote panel)  
+- The **Mixlar Connect iOS app**  
+- Remote control for sliders, macros, profiles, and widgets  
+- Secure access through Tailscale + HTTPS  
+
+You can configure it under:
+
+**Settings → Plugins → Web Controller**
+
+### Key Features
+
+- Runs a local web server (default port: 5000)  
+- Allows secure login (optional)  
+- Supports HTTPS certificates  
+- Lists both local and Tailscale access URLs  
+- Required for the iOS App and Web Viewer  
+
+<Card title="iOS App & Web Viewer Setup" icon="mobile-screen" href="/mixlar-connect/ios-setup">
+  Step-by-step setup for Tailscale, HTTPS, ports, and Mixlar Connect.
+</Card>
+
+---
+
+# Mixer Overlay Plugin
+
+The **Mixer Overlay** plugin places a **small, customizable overlay directly on your PC screen**, giving you at-a-glance feedback without ever looking down at your Mixlar Mix.
+
+### What the Overlay Can Show
+
+- Real-time slider movement  
+- Volume levels  
+- Mute/unmute indicators  
+- Macro trigger flashes  
+- Spotify now-playing (if enabled)  
+- System or profile changes (depending on settings)  
+
+This is extremely helpful when:
+
+- Gaming in fullscreen  
+- Streaming  
+- Using multiple monitors  
+- Editing or working without direct sightline to the mixer  
+
+### Customization Options
+
+Inside **Settings → Plugins → Mixer Overlay**, you can adjust:
+
+- **Position** — place it in any corner or custom location  
+- **Size** — scale the overlay larger or smaller  
+- **Transparency** — make it subtle or bold  
+- **Fade timing** — auto-hide or always show  
+- **Enabled elements** — choose which sliders or statuses appear  
+
+The overlay runs completely locally and does **not** record or broadcast your screen — it is purely visual feedback.
+
+---
+
+# Adobe Creative Cloud Plugin
+
+The **Adobe Creative Cloud** plugin integrates Mixlar Mix with compatible Adobe applications.
+
+### What It Can Do
+
+- Tie sliders to timeline zoom, scrub, or supported parameters  
+- Assign macros for editing shortcuts like cut, ripple delete, mark, export  
+- Trigger workflow actions from your mixer  
+- Improve editing speed and muscle memory  
+
+You can enable the plugin under:
+
+**Settings → Plugins → Adobe Creative Cloud**
+
+Note: Adobe API access varies by version, so features may expand over time.
+
+---
+
+# Experimental Status & Updates
+
+Because plugins evolve quickly:
+
+- Features may adjust or move  
+- New plugins may appear in future versions  
+- Bug fixes and performance improvements are frequent  
+
+To get the best experience:
+
+- Keep Mixlar Control updated  
+- Review release notes for plugin changes  
+- Report issues or suggestions  
+
+---
+
+# Create Your Own Plugin
+
+Mixlar includes a flexible plugin framework for developers and power users.
+
+You can build plugins that:
+
+- Add new notification handlers  
+- Integrate external applications  
+- Create custom automations  
+- Extend API endpoints  
+- Add overlays or new mixer pages  
+
+<Card
+  title="Plugin Developer Guide"
+  icon="code"
+  href="/plugins/developer-guide"
+>
+  Learn how to build Mixlar plugins from scratch with full documentation and examples.
+</Card>
+
+---
+
+# Feedback & Suggestions
+
+If you have ideas for future plugins or integrations, let us know:
+
+**Discord:** https://discord.gg/mixlar  
+**Email:** contact@mixlarlabs.com  
+
+Your feedback directly shapes Mixlar’s plugin ecosystem.
+
+---
+
+## Next Steps
+
+<Columns cols={2}>
+
+  <Card title="Web Controller" icon="globe" href="/plugins/web-controller">
+    Configure ports, HTTPS, Tailscale, and Web Viewer access.
+  </Card>
+
+  <Card title="Toast Notifications" icon="bell" href="/software/notifications">
+    Learn how plugins trigger real-time notifications and overlays.
+  </Card>
+
+</Columns>
