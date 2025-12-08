@@ -20,6 +20,7 @@
             "pages": [
               "index",
               "Start-Here/welcome",
+              "Start-Here/overview",
               "Start-Here/connections",
               "Start-Here/sliders",
               "Start-Here/profiles",
@@ -30,47 +31,19 @@
               "Start-Here/Website&App",
               "development"
             ]
-          },
-          {
-            "group": "Customization",
-            "pages": [
-              "essentials/settings",
-              "essentials/navigation"
-            ]
-          },
-          {
-            "group": "Writing content",
-            "pages": [
-              "essentials/markdown",
-              "essentials/code",
-              "essentials/images",
-              "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "AI tools",
-            "pages": [
-              "ai-tools/cursor",
-              "ai-tools/claude-code",
-              "ai-tools/windsurf"
-            ]
           }
         ]
       },
       {
         "version": "Developer API",
         "icon": "code",
-        "description": "Plugin API, notification API, and SDK documentation",
+        "description": "Plugin API, Toast API, and Mixlar Control SDK documentation",
         "groups": [
           {
-            "group": "API documentation",
+            "group": "Developer Resources",
             "pages": [
-              "api-reference/introduction"
-            ]
-          },
-          {
-            "group": "Endpoint examples",
-            "pages": [
+              "dev",
+              "api-reference/introduction",
               "api-reference/endpoint/get",
               "api-reference/endpoint/create",
               "api-reference/endpoint/delete",
@@ -89,7 +62,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:hi@mintlify.com"
+        "href": "mailto:contact@mixlarlabs.com"
       }
     ],
     "primary": {
@@ -112,10 +85,9 @@
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mintlify",
-      "github": "https://github.com/mintlify",
-      "linkedin": "https://linkedin.com/company/mintlify"
+      "x": "https://x.com/mixlarlabs",
+      "github": "https://github.com/mixlarlabs",
+      "linkedin": "https://linkedin.com/company/mixlarlabs"
     }
   }
 }
-
