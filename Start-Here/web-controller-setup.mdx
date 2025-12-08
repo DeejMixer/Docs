@@ -1,0 +1,367 @@
+---
+title: Web Controller Setup
+description: Complete guide to setting up and configuring the Mixlar Control Web Controller
+---
+
+## Overview
+
+The Web Controller plugin allows you to access and control your Mixlar mixer from any device with a web browser - phones, tablets, laptops, or other computers on your network.
+
+## Prerequisites
+
+Before you begin:
+- Mixlar Control desktop application installed and running
+- ESP32-S3 hardware controller connected via USB
+- Device connected to your local network (WiFi or Ethernet)
+
+## Enable Web Controller
+
+### Step 1: Open Plugin Settings
+
+1. Launch **Mixlar Control** on your PC
+2. Click the **Settings** gear icon (top-right corner)
+3. Select **Plugins** from the left-side menu
+4. Locate the **Web Controller** plugin tile
+
+### Step 2: Enable the Plugin
+
+1. Click on the **Web Controller** tile
+2. Toggle the **Enable** switch to ON
+3. The plugin will activate and show four configuration tabs
+
+## Configuration Tabs
+
+The Web Controller plugin has four main configuration sections:
+
+<Tabs>
+  <Tab title="Configure">
+    Port and basic settings
+  </Tab>
+  <Tab title="Security">
+    Authentication and access control
+  </Tab>
+  <Tab title="Remote Access">
+    Tailscale and HTTPS setup
+  </Tab>
+  <Tab title="Network">
+    Network information and connection details
+  </Tab>
+</Tabs>
+
+### Configure Tab
+
+This tab controls the basic web server settings.
+
+**Port Configuration:**
+
+1. Click the **Configure** tab
+2. Enter your preferred port number
+   - Default: `5000`
+   - Common alternatives: `5001`, `8080`, `3000`
+3. Click **Save** to apply changes
+
+**When to change the port:**
+- Port 5000 is already in use by another application
+- You want to run multiple instances
+- Your organization requires specific ports
+
+<Warning>
+  After changing the port, you'll need to restart the Web Controller server for changes to take effect.
+</Warning>
+
+### Security Tab
+
+Set up authentication to protect your mixer from unauthorized access.
+
+**Create Login Credentials:**
+
+1. Click the **Security** tab
+2. Enter a **username** (e.g., `admin`, `mixer`, your name)
+3. Enter a strong **password**
+4. Click **Save**
+
+<Info>
+  **Password Requirements:**
+  - Minimum 8 characters
+  - Mix of uppercase and lowercase letters
+  - Include numbers and symbols
+  - Avoid common words or personal information
+</Info>
+
+**Example strong passwords:**
+```
+MixlarControl2024!
+Slider#Mixer$789
+Audio@Remote#2024
+```
+
+<Warning>
+  Anyone with access to your username and password can control your mixer. Never share your credentials or use weak passwords.
+</Warning>
+
+### Remote Access Tab
+
+Enable secure remote access from anywhere using Tailscale.
+
+**Generate HTTPS Certificates:**
+
+1. Click the **Remote Access** tab
+2. Click the **Generate HTTPS Certificates** button
+3. Wait for the generation process to complete (10-30 seconds)
+4. You'll see a success message when ready
+
+**Enable Tailscale:**
+
+1. Ensure you have Tailscale installed and running on your PC
+2. Toggle the **Enable Tailscale** switch to ON
+3. The server will restart with HTTPS enabled
+4. Your secure Tailscale URL will appear in the Network tab
+
+<Note>
+  HTTPS certificates are required for Tailscale remote access. They encrypt all data between your device and the PC.
+</Note>
+
+**Why Generate Certificates?**
+- Encrypts all web traffic (HTTPS)
+- Required for Tailscale integration
+- Protects your login credentials
+- Prevents eavesdropping on your local network
+
+### Network Tab
+
+View connection information and access URLs.
+
+**Information Displayed:**
+
+- **Local IP Address**: Your PC's IP on the local network
+- **Port**: The port Web Controller is running on
+- **Local URL**: Access link for devices on the same network
+- **Tailscale URL**: Secure remote access link (if enabled)
+- **Available Networks**: WiFi networks your PC can connect to
+
+**Local Access URLs:**
+
+```
+http://192.168.1.100:5000  (Example - your IP will differ)
+http://localhost:5000       (On the same PC)
+```
+
+**Tailscale Access URL:**
+
+```
+https://mixlar-yourpc.tailnet-name.ts.net:5000  (Example)
+```
+
+<Tip>
+  Save the Tailscale URL to your phone's home screen for quick access!
+</Tip>
+
+## Accessing the Web Interface
+
+### From the Same PC
+
+1. Open any web browser
+2. Navigate to: `http://localhost:5000`
+3. Enter your username and password
+4. Click **Sign In**
+
+### From Another Device (Same Network)
+
+1. Find your PC's IP address:
+   - Check the **Network** tab in Web Controller settings, or
+   - Open Command Prompt and type `ipconfig`
+   - Look for "IPv4 Address" (e.g., `192.168.1.100`)
+
+2. On your mobile device or laptop:
+   - Open a web browser
+   - Navigate to: `http://YOUR_PC_IP:5000`
+   - Example: `http://192.168.1.100:5000`
+
+3. Login with your credentials
+
+### From Anywhere (Tailscale)
+
+See the [Remote Access with Tailscale](/remote-access-tailscale) guide for complete setup instructions.
+
+## Web Interface Features
+
+Once logged in, you'll have access to:
+
+### Mixer Tab
+- 4 audio channel sliders
+- Master volume control
+- Individual mute buttons
+- Master mute button
+- Real-time volume meters
+- Channel assignment labels
+
+### Macros Tab
+- 36 macro buttons (4 pages × 9 buttons)
+- Page navigation
+- One-tap macro execution
+- Visual feedback
+
+### Settings Tab (if enabled)
+- Change channel assignments
+- Configure devices
+- Update settings remotely
+
+## Starting and Stopping the Server
+
+### Start the Server
+
+After configuration:
+1. All settings are saved
+2. Server starts automatically when plugin is enabled
+3. Green status indicator shows "Running"
+
+### Stop the Server
+
+To stop the Web Controller:
+1. Open plugin settings
+2. Toggle **Enable** switch to OFF
+3. Server will shut down gracefully
+
+### Restart the Server
+
+If you need to restart:
+1. Toggle **Enable** switch OFF
+2. Wait 2 seconds
+3. Toggle **Enable** switch ON
+4. Server will restart with current settings
+
+## Firewall Configuration
+
+Windows Firewall may block incoming connections. Here's how to allow access:
+
+### Automatic (First Run)
+
+When you first start the server, Windows may show a firewall prompt:
+1. Check both "Private networks" and "Public networks"
+2. Click **Allow access**
+
+### Manual Configuration
+
+If you didn't see the prompt or need to add the rule manually:
+
+1. Open **Windows Defender Firewall**
+2. Click **Allow an app through firewall**
+3. Click **Change settings** (requires admin)
+4. Click **Allow another app**
+5. Browse to Python or Mixlar Control executable
+6. Click **Add**
+7. Check both **Private** and **Public** boxes
+8. Click **OK**
+
+Or use Command Prompt (as Administrator):
+
+```bash
+netsh advfirewall firewall add rule name="Mixlar Web Controller" dir=in action=allow protocol=TCP localport=5000
+```
+
+## Troubleshooting
+
+### Cannot Access Web Interface
+
+**Issue**: Browser shows "This site can't be reached"
+
+**Solutions**:
+1. Verify server is running (check for green status in plugin settings)
+2. Confirm you're using the correct IP address and port
+3. Check firewall settings (see above)
+4. Try accessing `http://localhost:5000` from the PC first
+5. Ensure both devices are on the same network
+
+### Login Page Shows Old Design
+
+**Issue**: Login page appears outdated or blank
+
+**Solutions**:
+1. Hard refresh the browser: Press `Ctrl + F5` (Windows) or `Cmd + Shift + R` (Mac)
+2. Clear browser cache
+3. Try opening in incognito/private mode
+
+### Login Fails
+
+**Issue**: "Invalid username or password" error
+
+**Solutions**:
+1. Verify username and password in Security tab
+2. Passwords are case-sensitive
+3. Reset credentials in plugin settings if needed
+4. Ensure you clicked "Save" after setting credentials
+
+### Port Already in Use
+
+**Issue**: "Port 5000 is already in use" error
+
+**Solutions**:
+1. Change port in Configure tab to `5001` or `8080`
+2. Find what's using the port:
+   ```bash
+   netstat -ano | findstr :5000
+   ```
+3. Close the application using that port
+4. Restart Web Controller server
+
+### Cannot Access from Mobile
+
+**Issue**: Mobile browser can't connect
+
+**Solutions**:
+1. Ensure both PC and mobile are on the same WiFi network
+2. Verify PC's firewall allows connections (see Firewall Configuration)
+3. Check if your WiFi router has client isolation enabled (disable it)
+4. Try connecting from another device to isolate the issue
+5. Disable VPN on mobile device temporarily
+
+## Best Practices
+
+<AccordionGroup>
+  <Accordion title="Use Strong Passwords">
+    Always use strong, unique passwords. Avoid:
+    - Default passwords (admin/password)
+    - Personal information (birthdays, names)
+    - Common words or phrases
+    - Reusing passwords from other services
+  </Accordion>
+
+  <Accordion title="Enable Tailscale for Remote Access">
+    If you need access outside your local network, always use Tailscale instead of port forwarding. Tailscale provides:
+    - End-to-end encryption
+    - No exposed ports to the internet
+    - Secure VPN tunnel
+    - HTTPS encryption
+  </Accordion>
+
+  <Accordion title="Update Credentials Regularly">
+    Change your username and password periodically, especially if:
+    - You suspect credentials were compromised
+    - Someone who knew them no longer needs access
+    - It's been more than 6 months
+  </Accordion>
+
+  <Accordion title="Monitor Access Logs">
+    Check who's accessing your mixer:
+    - Review login attempts in the console
+    - Watch for unexpected connections
+    - Log out when not in use
+  </Accordion>
+</AccordionGroup>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="Remote Access Setup" icon="globe" href="/remote-access-tailscale">
+    Set up Tailscale for secure remote access
+  </Card>
+  <Card title="iOS App" icon="mobile" href="/ios-app">
+    Download and use the native iOS app
+  </Card>
+  <Card title="Security Guide" icon="lock" href="/security">
+    Learn security best practices
+  </Card>
+  <Card title="API Documentation" icon="code" href="/api-reference">
+    Integrate with the Toast Notification API
+  </Card>
+</CardGroup>

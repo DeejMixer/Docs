@@ -1,0 +1,384 @@
+---
+title: Remote Access with Tailscale
+description: Set up secure remote access to your Mixlar Control from anywhere using Tailscale VPN
+---
+
+## Overview
+
+Tailscale provides the most secure way to access your Mixlar Control from anywhere in the world. Unlike port forwarding, Tailscale creates an encrypted VPN tunnel that keeps your mixer private and secure.
+
+## Why Tailscale?
+
+<CardGroup cols={3}>
+  <Card title="HTTPS Encryption" icon="lock">
+    All traffic is encrypted end-to-end with HTTPS certificates
+  </Card>
+  <Card title="VPN Security" icon="shield">
+    Creates a private network using WireGuard VPN technology
+  </Card>
+  <Card title="Zero Configuration" icon="magic">
+    No port forwarding, no router configuration needed
+  </Card>
+  <Card title="Works Anywhere" icon="globe">
+    Access from any network - WiFi, cellular, public hotspots
+  </Card>
+  <Card title="Cross-Platform" icon="mobile">
+    Available for Windows, Mac, Linux, iOS, Android
+  </Card>
+  <Card title="Free Tier" icon="gift">
+    Free for personal use with up to 100 devices
+  </Card>
+</CardGroup>
+
+<Warning>
+  **Never use port forwarding for remote access.** Port forwarding exposes your PC directly to the internet, creating serious security risks. Always use Tailscale or a similar VPN solution.
+</Warning>
+
+## Prerequisites
+
+Before you begin:
+- Mixlar Control with Web Controller plugin enabled
+- Username and password configured in Security tab
+- Administrator access on your PC (for installing Tailscale)
+- Tailscale account (free to create)
+
+## Installation
+
+### Step 1: Download Tailscale
+
+1. Visit [tailscale.com/download](https://tailscale.com/download)
+2. Download the installer for your operating system:
+   - **Windows**: Download and run the `.exe` installer
+   - **Mac**: Download the `.dmg` file
+   - **Linux**: Follow the distribution-specific instructions
+   - **iOS**: Download from the App Store
+   - **Android**: Download from Google Play
+
+### Step 2: Install on Your PC
+
+**Windows Installation:**
+
+1. Run the downloaded `Tailscale-Setup.exe` file
+2. Click **Install** when prompted
+3. Wait for installation to complete
+4. Tailscale will launch automatically
+
+**First-Time Setup:**
+
+1. Click **Get Started** in the Tailscale window
+2. Choose your preferred login method:
+   - Google Account
+   - Microsoft Account
+   - GitHub Account
+   - Email (create new account)
+3. Sign in or create your free account
+4. Click **Connect** to join your Tailscale network
+
+<Info>
+  Tailscale creates a unique private network (called a "tailnet") for your account. All your devices will be able to communicate securely through this network.
+</Info>
+
+### Step 3: Install on Mobile Devices
+
+To access your mixer from your phone or tablet:
+
+**iOS:**
+1. Open the **App Store**
+2. Search for **"Tailscale"**
+3. Tap **Get** to download
+4. Open Tailscale and sign in with the same account used on your PC
+
+**Android:**
+1. Open the **Google Play Store**
+2. Search for **"Tailscale"**
+3. Tap **Install**
+4. Open Tailscale and sign in with the same account
+
+<Tip>
+  Install Tailscale on all devices you want to access your mixer from - phones, tablets, work laptops, etc. They'll all be part of your private network.
+</Tip>
+
+## Mixlar Control Configuration
+
+### Step 1: Generate HTTPS Certificates
+
+HTTPS certificates are required for secure remote access.
+
+1. Open **Mixlar Control** on your PC
+2. Go to **Settings** → **Plugins** → **Web Controller**
+3. Click the **Remote Access** tab
+4. Click the **Generate HTTPS Certificates** button
+5. Wait for the generation process (10-30 seconds)
+6. You'll see a success message: "Certificates generated successfully"
+
+**What are HTTPS certificates?**
+- Encrypt all web traffic between your device and PC
+- Prevent eavesdropping and man-in-the-middle attacks
+- Required for secure login and data transmission
+- Self-signed certificates work perfectly for Tailscale
+
+### Step 2: Enable Tailscale Integration
+
+1. In the **Remote Access** tab, locate the Tailscale section
+2. Toggle the **Enable Tailscale** switch to ON
+3. The Web Controller will restart with HTTPS enabled
+4. Wait for the "Tailscale enabled successfully" message
+
+### Step 3: Get Your Secure URL
+
+1. Click the **Network** tab
+2. Look for the **Tailscale URL** section
+3. You'll see a URL like:
+   ```
+   https://mixlar-pc.yourtailnet.ts.net:5000
+   ```
+4. Copy this URL - you'll use it to access your mixer remotely
+
+<Note>
+  The Tailscale URL is unique to your setup and only works for devices on your Tailscale network. It's safe to save and share within your own devices.
+</Note>
+
+## Accessing Remotely
+
+### From a Web Browser
+
+1. Ensure Tailscale is running and connected on both devices (PC and the device you're using)
+2. Open a web browser on your mobile device or laptop
+3. Paste the Tailscale URL from the Network tab
+4. You'll see the Mixlar Control login page
+5. Enter your username and password
+6. Click **Sign In**
+
+<Check>
+  You should now see the mixer interface! You can control sliders, macros, and all features just like on your local network.
+</Check>
+
+### From the Mixlar Control iOS App
+
+1. Ensure Tailscale is running on your iPhone/iPad
+2. Open the **Mixlar Control** app
+3. Tap **Add Connection**
+4. Select **Tailscale**
+5. Enter your Tailscale URL
+6. Enter your username and password
+7. Tap **Connect**
+
+The app will remember your connection for future use.
+
+## Verifying Your Connection
+
+### Check Tailscale Status
+
+**On your PC:**
+1. Click the Tailscale icon in the system tray (bottom-right, near the clock)
+2. You should see your PC's Tailscale IP address (e.g., `100.64.0.1`)
+3. Status should show "Connected"
+
+**On your mobile device:**
+1. Open the Tailscale app
+2. Verify you're logged in and connected
+3. You should see your PC listed in the devices list
+
+### Test the Connection
+
+**Quick Test:**
+1. Disconnect from your home WiFi
+2. Switch to cellular data (or a different network)
+3. Open the Tailscale URL in your browser
+4. Login should work just like on your local network
+
+<Info>
+  If you can access the login page and control your mixer over cellular data, Tailscale is working correctly!
+</Info>
+
+## Troubleshooting
+
+### Cannot Access Tailscale URL
+
+**Issue**: Browser shows "This site can't be reached" when using Tailscale URL
+
+**Solutions**:
+
+1. **Verify Tailscale is running on both devices:**
+   - Check the Tailscale app shows "Connected" status
+   - Look for the green icon in the system tray
+
+2. **Restart Tailscale on both devices:**
+   - Right-click Tailscale icon → Exit
+   - Launch Tailscale again
+   - Wait for "Connected" status
+
+3. **Check if Mixlar Control is running:**
+   - Ensure the desktop app is open on your PC
+   - Verify Web Controller plugin is enabled
+
+4. **Verify HTTPS certificates were generated:**
+   - Open Web Controller settings
+   - Remote Access tab should show "Certificates: Active"
+   - If not, click "Generate HTTPS Certificates" again
+
+5. **Test local access first:**
+   - Try accessing `https://localhost:5000` from your PC
+   - If this doesn't work, Tailscale won't work either
+   - Fix local access before troubleshooting Tailscale
+
+### Certificate Errors
+
+**Issue**: Browser shows "Your connection is not private" or certificate warning
+
+**Solution**:
+
+This is expected with self-signed certificates. To proceed:
+
+1. Click **Advanced** (or "Show details")
+2. Click **Proceed to [site]** or "Accept the risk and continue"
+3. The warning is safe to ignore for Tailscale connections
+
+**To avoid this warning:**
+- Most browsers remember your choice after the first time
+- iOS/Safari: Settings → Safari → Advanced → Certificate Trust Settings
+
+### Slow Connection Speed
+
+**Issue**: Web interface is slow or laggy over Tailscale
+
+**Possible causes:**
+1. **Upload speed limitation**: Tailscale speed is limited by your home internet upload speed
+2. **Geographic distance**: Connecting from very far away increases latency
+3. **Network congestion**: Heavy internet usage can slow Tailscale
+
+**Solutions**:
+- Close bandwidth-heavy applications on your PC
+- Connect to WiFi instead of cellular (if possible)
+- Wait for better network conditions
+- Consider upgrading your home internet for better upload speeds
+
+### Tailscale Disconnects Frequently
+
+**Issue**: Tailscale connection drops or shows "Disconnected"
+
+**Solutions**:
+
+1. **Update Tailscale:**
+   - Download the latest version from tailscale.com
+   - Restart the app after updating
+
+2. **Check firewall settings:**
+   - Ensure Tailscale is allowed through Windows Firewall
+   - Add exception if needed
+
+3. **Verify account is active:**
+   - Log in to [tailscale.com](https://tailscale.com)
+   - Check your account status
+   - Ensure you haven't exceeded device limits (100 on free tier)
+
+## Security Best Practices
+
+<AccordionGroup>
+  <Accordion title="Keep Tailscale Updated">
+    Regularly update Tailscale on all devices to get the latest security patches and features. Enable automatic updates when available.
+  </Accordion>
+
+  <Accordion title="Use Strong Authentication">
+    Even with Tailscale's VPN protection, always use strong passwords for your Mixlar Control login. This provides defense-in-depth security.
+  </Accordion>
+
+  <Accordion title="Review Connected Devices">
+    Periodically check your Tailscale dashboard to see which devices are connected to your network. Remove any devices you no longer use.
+  </Accordion>
+
+  <Accordion title="Enable Key Expiry">
+    In Tailscale settings, enable key expiry for devices. This ensures old devices automatically disconnect after a period of inactivity.
+  </Accordion>
+
+  <Accordion title="Never Share Your Tailscale Account">
+    Your Tailscale account gives access to your entire private network. Never share your login credentials with anyone.
+  </Accordion>
+</AccordionGroup>
+
+## Advanced Configuration
+
+### Custom Port
+
+If you changed the Web Controller port from the default 5000:
+
+1. Your Tailscale URL will reflect the new port
+2. Example: `https://mixlar-pc.yourtailnet.ts.net:8080`
+3. Check the Network tab for the correct URL
+
+### Multiple Devices
+
+You can access your mixer from multiple devices simultaneously:
+
+1. Install Tailscale on each device
+2. Sign in with the same account
+3. All devices will see the same Tailscale URL
+4. Each device can connect independently
+
+### Sharing Access with Others
+
+To give someone else access to your mixer:
+
+<Warning>
+  Only share access with people you completely trust. They will have full control over your mixer.
+</Warning>
+
+**Option 1: Share Tailscale Network (Not Recommended)**
+- Add them to your Tailscale network
+- They'll have access to everything on your network
+- Only use this for family or very trusted individuals
+
+**Option 2: Create Separate Login (Recommended)**
+- Create a separate username/password in the Security tab
+- Give them this login only
+- They still need to be on your Tailscale network or local network
+
+## Tailscale Dashboard
+
+Access advanced Tailscale settings at [login.tailscale.com](https://login.tailscale.com):
+
+- View all connected devices
+- See connection history and logs
+- Enable/disable devices
+- Set up ACLs (Access Control Lists) for fine-grained permissions
+- Manage sharing and invitations
+- View traffic statistics
+
+## Comparison: Tailscale vs Port Forwarding
+
+| Feature | Tailscale | Port Forwarding |
+|---------|-----------|-----------------|
+| **Security** | ✅ VPN encrypted, HTTPS | ❌ Exposed to internet |
+| **Setup** | ✅ Easy, no router config | ❌ Complex router settings |
+| **Dynamic IP** | ✅ Works automatically | ❌ Requires DNS service |
+| **Firewall** | ✅ No changes needed | ❌ Opens security holes |
+| **Multiple Devices** | ✅ Easy to add | ❌ Each needs configuration |
+| **Cost** | ✅ Free for personal use | ✅ Free (but risky) |
+
+<Check>
+  **Verdict: Always use Tailscale.** It's more secure, easier to set up, and more reliable than port forwarding.
+</Check>
+
+## Next Steps
+
+<CardGroup cols={2}>
+  <Card title="iOS App Setup" icon="mobile" href="/ios-app">
+    Download and configure the Mixlar Control iOS app
+  </Card>
+  <Card title="Security Guide" icon="lock" href="/security">
+    Learn more security best practices
+  </Card>
+  <Card title="Troubleshooting" icon="wrench" href="/troubleshooting">
+    Common issues and solutions
+  </Card>
+  <Card title="Web Controller Guide" icon="globe" href="/web-controller-setup">
+    Complete Web Controller configuration
+  </Card>
+</CardGroup>
+
+## Resources
+
+- [Tailscale Documentation](https://tailscale.com/kb)
+- [Tailscale Download Page](https://tailscale.com/download)
+- [Tailscale Dashboard](https://login.tailscale.com)
+- [WireGuard VPN](https://www.wireguard.com) (technology behind Tailscale)
