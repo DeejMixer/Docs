@@ -1,0 +1,237 @@
+---
+title: "Toast Notifications"
+description: "Send live notifications from your apps and services directly to your Mixlar Mix."
+---
+
+# Toast Notifications
+
+The Mixlar Toast Notification System lets your Mixlar Mix display real-time updates from your apps — even while you’re gaming, streaming, or in fullscreen mode.  
+You can receive alerts from OBS, Spotify, Windows, calendars, email apps, or even custom automation scripts via API.
+
+<Image
+  src="/images/toast-main.png"
+  alt="Toast Notification dashboard"
+  style={{ borderRadius: "12px", marginTop: "16px" }}
+/>
+
+---
+
+## Notification Sources Overview
+
+Toast notifications are powered by individual “handlers,” each designed for a specific service.
+
+<Columns cols={2}>
+
+  <Card title="OBS Studio" icon="video">
+    Shows scene switches, recording start/stop, streaming events, and replay triggers.
+  </Card>
+
+  <Card title="Spotify" icon="spotify">
+    Displays song changes, play/pause, and like/unlike notifications with customizable timing.
+  </Card>
+
+  <Card title="Windows Notifications" icon="windows">
+    Capture desktop alerts from apps like Discord, Slack, Teams, browsers, or system events.
+  </Card>
+
+  <Card title="Calendar Reminders" icon="calendar">
+    Sends upcoming event reminders straight to your mixer screen.
+  </Card>
+
+  <Card title="Email Alerts" icon="envelope">
+    Allows supported email notifications to show on your Mixlar Mix display.
+  </Card>
+
+  <Card title="API Receiver" icon="server">
+    Accepts custom notifications from any script, program, or local service using simple HTTP requests.
+  </Card>
+
+</Columns>
+
+---
+
+# OBS Notifications
+
+<Image
+  src="/images/toast-obs.png"
+  alt="OBS notification settings"
+  style={{ borderRadius: "12px", marginTop: "12px" }}
+/>
+
+OBS integration requires no extra setup beyond enabling the handler in Mixlar Control.
+
+You will receive notifications when:
+
+- Scene switches occur  
+- Recording starts or stops  
+- Streaming begins or ends  
+- Replay events trigger  
+- Select OBS source toggles happen  
+
+---
+
+# Spotify Notifications
+
+<Image
+  src="/images/toast-spotify.png"
+  alt="Spotify notification settings"
+  style={{ borderRadius: "12px", marginTop: "12px" }}
+/>
+
+Spotify notifications include:
+
+- Song changes  
+- Play/pause events  
+- Like/unlike actions  
+- Next track previews  
+
+### Customization Options
+
+You can configure:
+
+- Notification duration  
+- Whether notifications display while already on the Spotify page  
+- Timing for playback events  
+
+Spotify integration also unlocks:
+
+- Spotify macros  
+- Spotify overlay notifications  
+- Color-synced display on the Spotify mixer screen  
+
+---
+
+# Windows Notifications
+
+<Image
+  src="/images/toast-windows.png"
+  alt="Windows toast settings"
+  style={{ borderRadius: "12px", marginTop: "12px" }}
+/>
+
+Windows integration gives you full control of desktop notifications.
+
+### App Filtering
+
+Choose between:
+
+- Showing notifications from all apps (not recommended)  
+- Restricting notifications to specific whitelisted apps like Discord, Slack, Outlook, Steam, etc.  
+
+### Custom Message Formatting
+
+Use formatting variables such as:
+
+```
+{app}   → App name  
+{title} → Notification title  
+{body}  → Notification content  
+```
+
+Examples:
+
+```
+{app}: {title}
+{title}
+Message from {app}
+```
+
+### Display Settings
+
+You can configure:
+
+- Toast visibility duration  
+- Max title length  
+- Max subtitle/content length  
+
+This ensures notifications remain readable even during gameplay or streaming.
+
+---
+
+# API Receiver (Advanced Users)
+
+<Image
+  src="/images/toast-api.png"
+  alt="API Receiver UI"
+  style={{ borderRadius: "12px", marginTop: "12px" }}
+/>
+
+The API Receiver enables **any script, tool, smart-home system, or app** to send notifications to your Mixlar Mix.
+
+### Configuration Options
+
+Inside **Notifications → API Receiver**, you can set:
+
+- **Port number** (default: 8889 — recommended)  
+- **API Key** (required for all requests)  
+- **Security settings**  
+
+### Example POST Notification
+
+```json
+{
+  "title": "Server Online",
+  "body": "All systems operating normally",
+  "icon": "check"
+}
+```
+
+Send to:
+
+\`\`\`
+http://YOUR-IP:8889/toast?apiKey=YOUR_API_KEY
+\`\`\`
+
+Great for:
+
+- Smart-home automation  
+- Stream automation  
+- Custom dashboards  
+- Status monitoring scripts  
+- Game integrations  
+
+---
+
+# Why Toast Notifications Matter
+
+Mixlar’s toast system keeps you informed without breaking immersion. Perfect for:
+
+- Fullscreen gaming  
+- Streaming with OBS  
+- Staying productive  
+- Monitoring real-time status  
+- Keeping up with communication apps  
+
+A quick glance at your Mixlar Mix gives you all the info you need.
+
+---
+
+# Future Improvements
+
+We are actively expanding Toast Notifications with:
+
+- More app integrations  
+- New formatting controls  
+- Cloud & cross-device syncing  
+- User-shared preset templates  
+
+Have suggestions? We’d love to hear them:
+
+**Discord:** https://discord.gg/mixlar  
+**Email:** contact@mixlarlabs.com  
+
+---
+
+## Next Steps
+
+<Columns cols={2}>
+
+  <Card title="Plugins" icon="puzzle-piece" href="/plugins/overview">
+    Learn how to install and manage Mixlar plugins, including the Web Controller and API modules.
+  </Card>
+
+  <Card title="iOS App Setup" icon="mobile-screen" href="/mixlar-connect/ios-setup">
+    Configure your phone with Mixlar Connect for remote control and cross-device toasts.
+  </Card>
+
+</Columns>
