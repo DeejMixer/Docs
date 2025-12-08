@@ -9,9 +9,10 @@
   },
   "favicon": "/favicon.svg",
   "navigation": {
-    "tabs": [
+    "versions": [
       {
-        "tab": "Guides",
+        "version": "Mixlar Mix",
+        "description": "Hardware + Mixer control documentation",
         "groups": [
           {
             "group": "Getting started",
@@ -56,7 +57,8 @@
         ]
       },
       {
-        "tab": "API reference",
+        "version": "Developer API",
+        "description": "Plugin API, notification API, and SDK documentation",
         "groups": [
           {
             "group": "API documentation",
