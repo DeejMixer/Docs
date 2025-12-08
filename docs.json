@@ -8,7 +8,6 @@
     "dark": "#782c2a"
   },
   "favicon": "/favicon.svg",
-
   "navigation": {
     "tabs": [
       {
@@ -40,7 +39,6 @@
         ]
       }
     ],
-
     "dropdowns": [
       {
         "dropdown": "Mixlar Mix",
@@ -62,10 +60,9 @@
       {
         "dropdown": "Developer API",
         "icon": "code",
-        "href": "/dev"     // You can change this to your real API docs route
+        "href": "/dev"
       }
     ],
-
     "products": [
       {
         "product": "Mixlar Mix",
@@ -94,16 +91,14 @@
         "product": "Developer API",
         "description": "Plugin API, notification API, and SDK documentation",
         "icon": "api",
-        "href": "/dev"   // Link to where your future dev docs will go
+        "href": "/dev"
       }
     ]
   },
-
   "logo": {
     "light": "/logo/Light.svg",
     "dark": "/logo/Dark.svg"
   },
-
   "navbar": {
     "links": [
       {
@@ -117,7 +112,6 @@
       "href": "https://mixlarlabs.com/download"
     }
   },
-
   "contextual": {
     "options": [
       "copy",
@@ -130,7 +124,6 @@
       "vscode"
     ]
   },
-
   "footer": {
     "socials": {
       "x": "https://x.com/mixlarlabs",
@@ -139,4 +132,3 @@
     }
   }
 }
-
