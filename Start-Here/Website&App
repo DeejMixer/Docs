@@ -1,0 +1,225 @@
+---
+title: "Mixlar Connect (iOS App + Web Viewer Setup)"
+description: "Set up the Web Controller plugin, toast notifications, Tailscale, HTTPS, and iOS app pairing."
+---
+
+# Mixlar Connect Setup
+
+Use the Mixlar iOS app or web viewer to control your Mixlar Mix remotely, receive toast notifications, and view live system widgets.
+
+<Info>
+  <strong>Before You Begin</strong>
+  - Mixlar Control installed on your PC  
+  - Web Controller plugin available  
+  - Optional: Tailscale for remote/HTTPS access  
+  - Optional: Toast Notifications if you want phone-driven toasts
+</Info>
+
+---
+
+## 1. Prepare Mixlar Control for iOS & Web Access
+
+To use the iOS app, Mixlar Control must run a local web server.
+
+<Steps>
+
+  <Step title="Install the Web Controller Plugin">
+    Open <strong>Settings → Plugins</strong> inside Mixlar Control.
+
+    <Image
+      src="/images/Screenshot-2025-12-08-12-59-31-PM.png"
+      alt="Web Controller installation UI"
+      style={{ borderRadius: "12px", marginTop: "12px" }}
+    />
+
+    Find <strong>Web Controller</strong> and click <strong>Install</strong>.  
+    Once installed, a globe icon will appear under Installed Plugins — click it to open the configuration window.
+  </Step>
+
+  <Step title="Configure the web server port">
+    In the <strong>Configuration</strong> tab:
+
+    - Default port: <strong>5000</strong>  
+    - Best to leave this value unless another app is already using it  
+    - If you change it, you must <strong>Save</strong>, then <strong>Uninstall</strong> and <strong>Reinstall</strong> the plugin for the change to apply
+
+    <Image
+      src="/images/2320c8d2-bbf6-4a26-a0eb-28a114983817.png"
+      alt="Web server configuration tab"
+      style={{ borderRadius: "12px", marginTop: "12px" }}
+    />
+  </Step>
+
+  <Step title="Optional: Enable login security">
+    In the <strong>Security</strong> tab you can:
+
+    - Turn on authentication  
+    - Set a username and password  
+
+    This is recommended if you don’t fully trust your home network or you plan to use remote access over Tailscale.
+  </Step>
+
+</Steps>
+
+---
+
+## 2. Remote Access & HTTPS (Tailscale Setup)
+
+Use this section if you want to connect from outside your home network or use HTTPS with the iOS app.
+
+<Info>
+  - HTTPS is <strong>required</strong> for secure remote iOS access  
+  - If you only use a local IP on your home network, you can skip certificates and Tailscale
+</Info>
+
+<Steps>
+
+  <Step title="Install Tailscale">
+    1. Go to <code>https://tailscale.com/download</code>  
+    2. Download and install Tailscale for your OS (Windows/macOS/Linux)  
+    3. Sign in with Google, Microsoft, GitHub, or Apple  
+    4. Confirm Tailscale shows your PC as <strong>Connected</strong> in the tray/menu bar
+  </Step>
+
+  <Step title="Enable MagicDNS">
+    1. Open the Tailscale admin dashboard: <code>https://login.tailscale.com/admin/dns</code>  
+    2. Enable <strong>MagicDNS</strong>  
+    3. Save changes  
+
+    MagicDNS gives you an easy domain like <code>yourname.ts.net</code>, which Mixlar uses for HTTPS certificates.
+  </Step>
+
+  <Step title="Generate HTTPS certificates">
+    1. In the same Tailscale DNS page, scroll to the <strong>HTTPS Certificates</strong> section  
+    2. Enable a certificate for your PC  
+    3. Open Mixlar Control → <strong>Plugins → Web Controller → Remote Access</strong>  
+    4. Click <strong>Get Certificates</strong> to download and apply them
+
+    <Image
+      src="/images/28c12924-871e-4777-90d3-f456419e9eca.png"
+      alt="HTTPS certificate UI in Web Controller"
+      style={{ borderRadius: "12px", marginTop: "12px" }}
+    />
+
+    After this, Mixlar will show an HTTPS link such as:  
+    <code>https://yourname.ts.net:5000</code>
+  </Step>
+
+  <Step title="Check available links in the Network tab">
+    Go to the <strong>Network</strong> tab in the Web Controller plugin.
+
+    You’ll see:
+
+    - Local IP URL (home network only)  
+    - Local HTTP port  
+    - <strong>Tailscale HTTPS URL</strong> — this is the recommended link for the iOS app
+  </Step>
+
+</Steps>
+
+---
+
+## 3. Enable Toast Notifications (Optional)
+
+Toast notifications let your Mixlar Mix display events such as Spotify changes, OBS status, calendar reminders, and custom API events.
+
+<Steps>
+
+  <Step title="Open API Receiver settings">
+    In Mixlar Control, go to:
+
+    <strong>Settings → Notifications → API Receiver</strong>
+
+    <Image
+      src="/images/c6a11de1-e6fb-470b-9ff7-88f1abf8be16.png"
+      alt="Toast notifications and API Receiver"
+      style={{ borderRadius: "12px", marginTop: "12px" }}
+    />
+  </Step>
+
+  <Step title="Configure the API Receiver">
+    - Leave the <strong>Port</strong> at the default <strong>8889</strong> (recommended)  
+    - Make sure <strong>Require API Key</strong> is <strong>enabled</strong>  
+    - Copy the generated API key (for example: <code>FG55H-G92JK-23AFG-HS992-KH33L</code>)
+
+    You’ll use this key in the iOS app.
+  </Step>
+
+</Steps>
+
+<Info>
+  The iOS app can connect without toast notifications,  
+  but the API Receiver must be enabled if you want mobile-driven toasts.
+</Info>
+
+---
+
+## 4. Set Up the Mixlar iOS App
+
+<Steps>
+
+  <Step title="Install the app">
+    Download <strong>Mixlar Connect</strong> from the iOS App Store.
+  </Step>
+
+  <Step title="Enter your server URL">
+    When the app first opens, it will ask for a server link.
+
+    You can use:
+
+    - <strong>Local IP (home only)</strong>:  
+      <code>http://192.168.x.x:5000</code>  
+
+    - <strong>Tailscale HTTPS URL (recommended)</strong>:  
+      <code>https://yourname.ts.net:5000</code>  
+
+    The Tailscale URL allows secure access from anywhere.
+  </Step>
+
+  <Step title="Configure API settings in the app">
+    In the app, go to <strong>Settings</strong>:
+
+    - Paste your API key from the API Receiver  
+    - Set the API port to <strong>8889</strong> (or your custom port)  
+    - Save changes
+  </Step>
+
+  <Step title="Test a toast notification">
+    In the iOS app, open the <strong>Broadcast & Notifications</strong> section and tap **Test Toast Notification**.
+
+    <Image
+      src="/images/IMG_3623.jpg"
+      alt="iOS broadcast and notifications settings"
+      style={{ borderRadius: "12px", marginTop: "12px" }}
+    />
+
+    A toast should appear on your Mixlar Mix display.  
+    If it does, your iOS app, Web Controller, and API Receiver are all configured correctly.
+  </Step>
+
+</Steps>
+
+---
+
+## Important Notes
+
+<Info>
+  - The <strong>Web Controller</strong> plugin is required for the iOS app  
+  - Tailscale + HTTPS are required for secure remote access (not for local-only use)  
+  - Toast notifications are optional, but the API Receiver must be enabled if you want them  
+  - You can switch between local IP and Tailscale URL in the app at any time
+</Info>
+
+---
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Tailscale details" icon="shield-check" href="/mixlar-connect/tailscale-setup">
+    Learn more about MagicDNS, certificates, and advanced remote access options.
+  </Card>
+
+  <Card title="Toast notification plugins" icon="bell" href="/software/notifications">
+    Configure OBS, Spotify, Calendar, Email, and other notification handlers.
+  </Card>
+</Columns>
