@@ -1,175 +1,82 @@
 ---
 title: Quick Start Guide
-description: Get started with Mixlar Control Web Controller and iOS app in minutes
+description: Get started with Mixlar Control in minutes
 ---
 
-## Prerequisites
+## What You Need
 
-Before you begin, ensure you have:
-- Mixlar Control desktop application installed
-- ESP32-S3 hardware controller connected via USB
-- Windows PC connected to your local network
+- Mixlar Control desktop app installed
+- ESP32-S3 controller connected via USB
 
-## Getting Started
+## Setup Steps
 
-You have two ways to access Mixlar Control remotely:
+### 1. Enable Web Controller
 
-<CardGroup cols={2}>
-  <Card title="Web Browser" icon="globe" href="#web-controller-setup">
-    Access from any device's browser on your network
-  </Card>
-  <Card title="iOS App" icon="mobile" href="#ios-app">
-    Download the native Mixlar Control app
-  </Card>
-</CardGroup>
+1. Open **Mixlar Control**
+2. Click **Settings** → **Plugins**
+3. Click **Web Controller**
+4. Toggle **Enable** to ON
 
-## Web Controller Setup
+### 2. Configure Settings
 
-Follow these steps to enable remote access through your web browser.
+Click through the four tabs:
 
-### Step 1: Open Plugin Settings
+**Configure Tab**
+- Set port (default: 5000)
 
-1. Launch **Mixlar Control** on your PC
-2. Click the **Settings** icon in the top-right corner
-3. Select **Plugins** from the left-side menu
-4. Find and click on **Web Controller**
+**Security Tab**
+- Create username and password
 
-### Step 2: Enable the Plugin
+**Remote Access Tab**
+- Click **Generate HTTPS Certificates**
+- Toggle **Enable Tailscale** (for remote access)
 
-1. Toggle the **Enable** switch to turn on Web Controller
-2. You'll see four configuration tabs appear:
-   - Configure
-   - Security
-   - Remote Access
-   - Network
+**Network Tab**
+- Copy your connection URL
 
-### Step 3: Configure Port (Optional)
+### 3. Connect
 
-1. Click the **Configure** tab
-2. Set your preferred port (default: `5000`)
-3. Click **Save**
-
-<Note>
-  If port 5000 is already in use, choose a different port like 5001 or 8080.
-</Note>
-
-### Step 4: Set Up Security
-
-1. Click the **Security** tab
-2. Create a **username** for login access
-3. Create a strong **password**
-4. Click **Save**
-
-<Warning>
-  Never use simple passwords like "admin" or "password". Use a strong password with letters, numbers, and symbols.
-</Warning>
-
-### Step 5: Access Locally
-
-You can now access the web interface:
-
-**On the same PC:**
+**Same Network:**
 ```
 http://localhost:5000
 ```
 
-**From other devices (same network):**
+**From Phone (Same WiFi):**
 ```
 http://YOUR_PC_IP:5000
 ```
 
-<Info>
-  Find your PC's IP address: Open Command Prompt and type `ipconfig`. Look for "IPv4 Address".
-</Info>
+**From Anywhere (Tailscale):**
+```
+https://your-tailscale-url:5000
+```
 
-## Remote Access with Tailscale (Recommended)
+## Remote Access (Recommended)
 
-For secure access from anywhere, use Tailscale. This provides HTTPS encryption and VPN security.
+For secure access from anywhere:
 
-### Why Tailscale?
-
-<CardGroup cols={3}>
-  <Card title="Secure" icon="lock">
-    HTTPS encryption with VPN tunnel
-  </Card>
-  <Card title="Easy" icon="sparkles">
-    One-click setup with automatic configuration
-  </Card>
-  <Card title="Anywhere" icon="globe">
-    Access from any location, any network
-  </Card>
-</CardGroup>
-
-### Setup Steps
-
-1. **Download Tailscale**
-   - Visit [tailscale.com/download](https://tailscale.com/download)
-   - Install on your PC and mobile devices
-   - Create a free Tailscale account
-
-2. **Enable in Mixlar Control**
-   - Open Web Controller plugin settings
-   - Click the **Remote Access** tab
-   - Click **Generate HTTPS Certificates** button
-   - Wait for certificate generation to complete
-   - Toggle **Enable Tailscale** switch
-
-3. **Get Your Secure Link**
-   - Click the **Network** tab
-   - Copy the Tailscale secure link (starts with `https://`)
-   - Save this link for accessing from anywhere
-
-4. **Access Remotely**
-   - Open the secure link on any device with Tailscale installed
-   - Login with your username and password
-   - Control your mixer from anywhere!
-
-<Tip>
-  The Tailscale link works on any network - home WiFi, mobile data, coffee shop, anywhere!
-</Tip>
+1. Download [Tailscale](https://tailscale.com/download)
+2. Install on PC and phone
+3. Sign in with same account
+4. Use the Tailscale URL from Network tab
 
 ## iOS App
 
-Prefer a native mobile experience? Download the Mixlar Control app.
-
-### Download
-
-1. Open the **App Store** on your iPhone or iPad
-2. Search for **"Mixlar Control"**
-3. Tap **Get** to download
-4. Open the app
-
-### Connect
-
-The app will automatically discover your Mixlar Control instance on the local network.
-
-For remote access via Tailscale:
-1. Install Tailscale on your iOS device
-2. Log in with the same Tailscale account
-3. Open Mixlar Control app
-4. Enter your Tailscale secure link
-5. Login with your credentials
+Download **Mixlar Control** from the App Store for a native mobile experience.
 
 ## Next Steps
 
 <CardGroup cols={2}>
-  <Card title="Web Controller Guide" icon="book" href="/web-controller-setup">
-    Detailed setup and configuration options
+  <Card title="Web Setup" icon="globe" href="/web-controller-setup">
+    Detailed web controller guide
   </Card>
-  <Card title="Tailscale Setup" icon="shield" href="/remote-access-tailscale">
-    Complete Tailscale configuration guide
+  <Card title="Tailscale" icon="shield" href="/remote-access-tailscale">
+    Remote access setup
   </Card>
-  <Card title="Security Best Practices" icon="lock" href="/security">
-    Keep your setup secure
+  <Card title="iOS App" icon="mobile" href="/ios-app">
+    iOS app guide
   </Card>
   <Card title="Troubleshooting" icon="wrench" href="/troubleshooting">
-    Common issues and solutions
+    Common issues
   </Card>
 </CardGroup>
-
-## Need Help?
-
-If you encounter any issues:
-- Check the [Troubleshooting Guide](/troubleshooting)
-- Review the [FAQ](/faq)
-- Join our Discord community for support
