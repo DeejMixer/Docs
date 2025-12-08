@@ -8,85 +8,87 @@
     "dark": "#802321"
   },
   "favicon": "/favicon.svg",
-  "navigation": [
-    {
-      "tab": "Guides",
-      "groups": [
-        {
-          "group": "Getting started",
-          "pages": [
-            "index",
-            "development"
-          ]
-        },
-        {
-          "group": "Customization",
-          "pages": [
-            "essentials/settings",
-            "essentials/navigation"
-          ]
-        },
-        {
-          "group": "Writing content",
-          "pages": [
-            "essentials/markdown",
-            "essentials/code",
-            "essentials/images",
-            "essentials/reusable-snippets"
-          ]
-        },
-        {
-          "group": "Start Here",
-          "pages": [
-            {
-              "page": "Start-Here/ios-app",
-              "icon": "mobile-screen-button"
-            },
-            {
-              "page": "Start-Here/quickstart",
-              "icon": "rocket"
-            },
-            {
-              "page": "Start-Here/remote-access-tailscale",
-              "icon": "shield"
-            },
-            {
-              "page": "Start-Here/web-controller-setup",
-              "icon": "globe"
-            }
-          ]
-        },
-        {
-          "group": "AI tools",
-          "pages": [
-            "ai-tools/cursor",
-            "ai-tools/claude-code",
-            "ai-tools/windsurf"
-          ]
-        }
-      ]
-    },
-    {
-      "tab": "API reference",
-      "groups": [
-        {
-          "group": "API documentation",
-          "pages": [
-            "api-reference/introduction"
-          ]
-        },
-        {
-          "group": "Endpoint examples",
-          "pages": [
-            "api-reference/endpoint/get",
-            "api-reference/endpoint/create",
-            "api-reference/endpoint/delete",
-            "api-reference/endpoint/webhook"
-          ]
-        }
-      ]
-    }
-  ],
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "index",
+              "development"
+            ]
+          },
+          {
+            "group": "Customization",
+            "pages": [
+              "essentials/settings",
+              "essentials/navigation"
+            ]
+          },
+          {
+            "group": "Writing content",
+            "pages": [
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images",
+              "essentials/reusable-snippets"
+            ]
+          },
+          {
+            "group": "Start Here",
+            "pages": [
+              {
+                "page": "Start-Here/ios-app",
+                "icon": "mobile-screen-button"
+              },
+              {
+                "page": "Start-Here/quickstart",
+                "icon": "rocket"
+              },
+              {
+                "page": "Start-Here/remote-access-tailscale",
+                "icon": "shield"
+              },
+              {
+                "page": "Start-Here/web-controller-setup",
+                "icon": "globe"
+              }
+            ]
+          },
+          {
+            "group": "AI tools",
+            "pages": [
+              "ai-tools/cursor",
+              "ai-tools/claude-code",
+              "ai-tools/windsurf"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API reference",
+        "groups": [
+          {
+            "group": "API documentation",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Endpoint examples",
+            "pages": [
+              "api-reference/endpoint/get",
+              "api-reference/endpoint/create",
+              "api-reference/endpoint/delete",
+              "api-reference/endpoint/webhook"
+            ]
+          }
+        ]
+      }
+    ]
+  },
   "anchors": [
     {
       "anchor": "Documentation",
