@@ -3,9 +3,9 @@
   "theme": "maple",
   "name": "Mixlar Docs",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "##bd4340",
+    "light": "#db4e4b",
+    "dark": "#782c2a"
   },
   "favicon": "/favicon.svg",
   "navigation": {
