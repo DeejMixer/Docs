@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "Mint Starter Kit",
   "colors": {
-    "primary": "#bb3533",
-    "light": "#db403d",
-    "dark": "#802321"
+    "primary": "#16A34A",
+    "light": "#07C983",
+    "dark": "#15803D"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -17,6 +17,7 @@
             "group": "Getting started",
             "pages": [
               "index",
+              "quickstart",
               "development"
             ]
           },
@@ -34,27 +35,6 @@
               "essentials/code",
               "essentials/images",
               "essentials/reusable-snippets"
-            ]
-          },
-          {
-            "group": "Start Here",
-            "pages": [
-              {
-                "page": "Start-Here/ios-app",
-                "icon": "mobile-screen-button"
-              },
-              {
-                "page": "Start-Here/quickstart",
-                "icon": "rocket"
-              },
-              {
-                "page": "Start-Here/remote-access-tailscale",
-                "icon": "shield"
-              },
-              {
-                "page": "Start-Here/web-controller-setup",
-                "icon": "globe"
-              }
             ]
           },
           {
@@ -87,23 +67,25 @@
           }
         ]
       }
-    ]
-  },
-  "anchors": [
-    {
-      "anchor": "Documentation",
-      "href": "https://mintlify.com/docs",
-      "icon": "book-open-cover"
-    },
-    {
-      "anchor": "Blog",
-      "href": "https://mintlify.com/blog",
-      "icon": "newspaper"
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Documentation",
+          "href": "https://mintlify.com/docs",
+          "icon": "book-open-cover"
+        },
+        {
+          "anchor": "Blog",
+          "href": "https://mintlify.com/blog",
+          "icon": "newspaper"
+        }
+      ]
     }
-  ],
+  },
   "logo": {
-    "light": "/logo/Light.svg",
-    "dark": "/logo/Dark.svg"
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
   },
   "navbar": {
     "links": [
@@ -120,15 +102,15 @@
   },
   "contextual": {
     "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
+     "copy",
+     "view",
+     "chatgpt",
+     "claude",
+     "perplexity",
+     "mcp",
+     "cursor",
+     "vscode"
+   ]
   },
   "footer": {
     "socials": {
