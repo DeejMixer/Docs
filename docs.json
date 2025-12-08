@@ -12,6 +12,7 @@
     "versions": [
       {
         "version": "Mixlar Mix",
+        "icon": "sliders",
         "description": "Hardware + Mixer control documentation",
         "groups": [
           {
@@ -58,6 +59,7 @@
       },
       {
         "version": "Developer API",
+        "icon": "code",
         "description": "Plugin API, notification API, and SDK documentation",
         "groups": [
           {
