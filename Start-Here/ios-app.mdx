@@ -1,499 +1,70 @@
 ---
-title: Mixlar Control iOS App
-description: Download and set up the native Mixlar Control app for iPhone and iPad
+title: iOS App
+description: Download and use the Mixlar Control iOS app
 ---
 
-## Overview
+## Download
 
-The Mixlar Control iOS app provides a native mobile experience for controlling your audio mixer from your iPhone or iPad. With a touch-optimized interface and support for both local and remote connections, you can manage your mixer from anywhere.
+1. Open **App Store** on iPhone or iPad
+2. Search **"Mixlar Control"**
+3. Tap **Get** to download
+4. Open the app
 
-## Download the App
+## Connect
 
-### From the App Store
+### Local Network (Same WiFi)
 
-1. Open the **App Store** on your iPhone or iPad
-2. Tap the **Search** tab at the bottom
-3. Search for **"Mixlar Control"**
-4. Tap **Get** to download
-5. Authenticate with Face ID, Touch ID, or your Apple ID password
-6. Wait for the download and installation to complete
-7. Tap **Open** to launch the app
+**Automatic:**
+1. Tap **Local Network**
+2. Your PC should appear automatically
+3. Tap your PC's name
+4. Enter username and password
+5. Tap **Connect**
 
-<Info>
-  The Mixlar Control app requires iOS 14.0 or later. It's compatible with iPhone, iPad, and iPod touch.
-</Info>
+**Manual:**
+1. Tap **Enter Manually**
+2. Enter `http://YOUR_PC_IP:5000`
+3. Enter credentials
+4. Tap **Connect**
 
-## Prerequisites
+### Remote (Tailscale)
 
-Before connecting the app to your mixer:
-
-- Mixlar Control desktop application running on your PC
-- Web Controller plugin enabled and configured
-- For local access: iPhone and PC on the same WiFi network
-- For remote access: Tailscale installed and configured on both devices
-
-<Note>
-  If you haven't set up the Web Controller yet, see the [Web Controller Setup Guide](/web-controller-setup) first.
-</Note>
-
-## First-Time Setup
-
-### Step 1: Launch the App
-
-1. Tap the **Mixlar Control** icon on your home screen
-2. You'll see the welcome screen
-3. Tap **Get Started**
-
-### Step 2: Choose Connection Type
-
-The app offers two connection methods:
-
-<Tabs>
-  <Tab title="Local Network">
-    Connect when on the same WiFi as your PC
-  </Tab>
-  <Tab title="Tailscale (Remote)">
-    Connect from anywhere with Tailscale VPN
-  </Tab>
-</Tabs>
-
-## Local Network Connection
-
-Perfect for use at home when your iPhone and PC are on the same WiFi.
-
-### Automatic Discovery
-
-1. Tap **Local Network** on the connection screen
-2. The app will scan for Mixlar Control instances on your network
-3. Your PC should appear in the list automatically
-4. Tap on your PC's name to select it
-5. Enter your username and password
+1. Install Tailscale on your iPhone
+2. Sign in with same account as PC
+3. In Mixlar Control app, tap **Tailscale**
+4. Enter your Tailscale URL (from PC's Network tab)
+5. Enter credentials
 6. Tap **Connect**
-
-<Check>
-  If automatic discovery works, you're all set! The app will remember this connection for future use.
-</Check>
-
-### Manual Connection
-
-If automatic discovery doesn't find your PC:
-
-1. Tap **Enter Manually** at the bottom
-2. Enter your PC's information:
-   - **Server URL**: `http://YOUR_PC_IP:5000`
-   - **Username**: Your configured username
-   - **Password**: Your configured password
-3. Tap **Connect**
-
-**Finding your PC's IP address:**
-- Open Mixlar Control on your PC
-- Go to Settings → Plugins → Web Controller
-- Click the **Network** tab
-- Look for "Local IP Address" (e.g., `192.168.1.100`)
-
-<Info>
-  Your PC's IP address may change if you're using DHCP. If the connection stops working, check the Network tab to see if the IP changed.
-</Info>
-
-## Remote Connection (Tailscale)
-
-Access your mixer from anywhere - cellular data, coffee shops, work, travel.
-
-### Prerequisites for Tailscale
-
-1. Tailscale installed on your iPhone
-2. Tailscale installed on your PC
-3. Both devices signed in to the same Tailscale account
-4. HTTPS certificates generated in Mixlar Control
-
-<Warning>
-  You must complete the [Tailscale setup](/remote-access-tailscale) on your PC before using remote access on iOS.
-</Warning>
-
-### Connect via Tailscale
-
-1. Open the **Tailscale** app on your iPhone
-2. Ensure you're connected (green status)
-3. Open the **Mixlar Control** app
-4. Tap **Tailscale (Remote)** on the connection screen
-5. Enter your Tailscale URL from the PC's Network tab:
-   ```
-   https://mixlar-pc.yourtailnet.ts.net:5000
-   ```
-6. Enter your username and password
-7. Tap **Connect**
-
-**Getting your Tailscale URL:**
-- On your PC: Settings → Plugins → Web Controller → Network tab
-- Copy the full URL including `https://` and the port number
-- Paste it exactly as shown in the app
-
-<Tip>
-  Save the Tailscale URL in your iPhone's Notes app for easy copy-paste in the future.
-</Tip>
-
-### Certificate Trust (First Time Only)
-
-When connecting via Tailscale for the first time, you may see a certificate warning:
-
-1. Tap **View Certificate**
-2. Review the certificate details
-3. Tap **Trust** to proceed
-4. This is safe for self-signed certificates used with Tailscale
 
 ## Using the App
 
-Once connected, you'll have full access to your mixer controls.
+**Mixer Tab:**
+- Control 4 sliders
+- Adjust master volume
+- Mute buttons
 
-### Interface Overview
+**Macros Tab:**
+- 36 macro buttons (4 pages)
+- Swipe left/right to change pages
+- Tap to execute
 
-The app has three main tabs:
-
-<Tabs>
-  <Tab title="Mixer">
-    Control audio sliders and mute buttons
-  </Tab>
-  <Tab title="Macros">
-    Execute macro buttons across 4 pages
-  </Tab>
-  <Tab title="Settings">
-    Configure app preferences and connection
-  </Tab>
-</Tabs>
-
-### Mixer Tab
-
-**Master Volume:**
-- Large circular slider at the top
-- Drag around the circle to adjust volume
-- Tap the center to toggle master mute
-
-**Channel Sliders:**
-- 4 vertical sliders for individual channels
-- Slide up/down to adjust volume
-- Tap the button above each slider to toggle mute
-- Labels show which app/device each slider controls
-
-**Features:**
-- Real-time updates when changes are made on the PC
-- Visual volume meters for each channel
-- Haptic feedback for button presses
-- Gesture-based control
-
-### Macros Tab
-
-**Page Navigation:**
-- Swipe left/right to switch between 4 macro pages
-- Or use the page selector at the top
-
-**Macro Buttons:**
-- 9 buttons per page (3×3 grid)
-- Tap to execute a macro
-- Visual feedback shows when pressed
-- Icons and labels match your desktop configuration
-
-<Note>
-  Macros are configured in the desktop app. The iOS app displays and executes them, but editing must be done on your PC.
-</Note>
-
-### Settings Tab
-
-**Connection:**
-- View current connection status
-- Switch between saved connections
-- Edit connection details
-- Disconnect from current server
-
-**Preferences:**
-- Enable/disable haptic feedback
-- Adjust sensitivity for sliders
-- Choose theme (light/dark/auto)
-- Configure notifications
-
-**About:**
-- App version information
-- Desktop app version (if connected)
-- Support and documentation links
-
-## Managing Connections
-
-### Save Multiple Connections
-
-You can save multiple connections for different scenarios:
-
-1. **Home WiFi**: Local network connection
-2. **Tailscale**: Remote access
-3. **Work Network**: If you use your mixer at work
-
-**To add a new connection:**
-1. Tap **Settings** → **Connections**
-2. Tap **Add Connection**
-3. Enter the connection details
-4. Tap **Save**
-
-**To switch connections:**
-1. Disconnect from current server
-2. Tap **Connections** in Settings
-3. Tap the connection you want to use
-4. Tap **Connect**
-
-### Edit Saved Connections
-
-1. Settings → Connections
-2. Swipe left on a connection
-3. Tap **Edit**
-4. Update the details
-5. Tap **Save**
-
-### Delete a Connection
-
-1. Settings → Connections
-2. Swipe left on a connection
-3. Tap **Delete**
-4. Confirm deletion
+**Settings Tab:**
+- Manage connections
+- App preferences
+- View connection status
 
 ## Troubleshooting
 
-### Cannot Find PC on Local Network
-
-**Issue**: Automatic discovery doesn't show your PC
-
-**Solutions**:
-
-1. **Verify both devices are on the same WiFi network:**
-   - Check WiFi settings on iPhone
-   - Confirm PC is connected to the same network
-
-2. **Check if Web Controller is running:**
-   - Open Mixlar Control on PC
-   - Verify plugin is enabled
-   - Look for "Server Running" status
-
-3. **Restart the discovery process:**
-   - Pull down to refresh the device list
-   - Or tap "Scan Again"
-
-4. **Use manual connection instead:**
-   - Tap "Enter Manually"
-   - Enter your PC's IP address and port
-
-5. **Check firewall settings:**
-   - Ensure Windows Firewall allows connections
-   - See [Web Controller Setup](/web-controller-setup#firewall-configuration)
-
-### Connection Keeps Dropping
-
-**Issue**: App disconnects frequently
-
-**Solutions**:
-
-1. **For local connections:**
-   - Ensure PC doesn't go to sleep
-   - Disable WiFi power saving on PC
-   - Stay within WiFi range
-
-2. **For Tailscale connections:**
-   - Verify Tailscale is running on both devices
-   - Check Tailscale connection status
-   - Restart Tailscale app
-
-3. **Check network stability:**
-   - Move closer to WiFi router
-   - Switch to cellular if WiFi is unstable (Tailscale only)
-
-### Login Fails
-
-**Issue**: "Invalid username or password" error
-
-**Solutions**:
-
-1. Verify credentials in the desktop app:
-   - Settings → Plugins → Web Controller → Security tab
-   - Check username and password
-   - Passwords are case-sensitive
-
-2. Reset password if needed:
-   - Update password in desktop app
-   - Save changes
-   - Try logging in again on iOS
-
-3. Clear saved credentials:
-   - Delete the connection in app
-   - Add it again with correct credentials
-
-### Tailscale Connection Not Working
-
-**Issue**: Cannot connect using Tailscale URL
-
-**Solutions**:
-
-1. **Verify Tailscale is running:**
-   - Open Tailscale app on iPhone
-   - Check for "Connected" status
-   - You should see your PC in the device list
-
-2. **Check the URL format:**
-   - Must start with `https://` (not `http://`)
-   - Must include the port number (e.g., `:5000`)
-   - Copy exactly from the Network tab on PC
-
-3. **Verify certificates are generated:**
-   - On PC: Remote Access tab
-   - Status should show "Certificates: Active"
-   - If not, click "Generate HTTPS Certificates"
-
-4. **Test from Safari first:**
-   - Open Safari on your iPhone
-   - Paste the Tailscale URL
-   - Verify you can access the login page
-   - If this works, the issue is with the app
-
-### Sliders or Macros Don't Respond
-
-**Issue**: Tapping buttons or moving sliders has no effect
-
-**Solutions**:
-
-1. **Check connection status:**
-   - Look for the green "Connected" indicator
-   - If offline, reconnect to the server
-
-2. **Verify desktop app is connected to hardware:**
-   - Desktop app must show "Connected" status
-   - Hardware controller must be plugged in via USB
-
-3. **Restart the app:**
-   - Close the app completely
-   - Reopen and reconnect
-
-4. **Check for app updates:**
-   - Visit App Store
-   - Update if a new version is available
-
-## Tips and Tricks
-
-### Add to Home Screen Widget (iOS 14+)
-
-For quick access to volume controls:
-
-1. Long-press on your home screen
-2. Tap the **+** icon
-3. Search for **Mixlar Control**
-4. Select the widget size
-5. Tap **Add Widget**
-6. Position it on your home screen
-
-### Siri Shortcuts
-
-Create custom Siri shortcuts for common actions:
-
-1. Open **Shortcuts** app
-2. Tap **+** to create new shortcut
-3. Add **Mixlar Control** actions
-4. Name it (e.g., "Mute Discord")
-5. Record a Siri phrase
-6. Now say the phrase to trigger the action
-
-**Example shortcuts:**
-- "Mute all"
-- "Unmute music"
-- "Execute macro 5"
-- "Set game volume to 50%"
-
-### Background Audio Mode
-
-Keep the app responsive in the background:
-
-1. Settings → General
-2. Enable **Background Refresh**
-3. Select **Mixlar Control**
-4. Choose **WiFi & Cellular Data**
-
-<Note>
-  Background mode allows the app to stay connected when multitasking, but may use more battery.
-</Note>
-
-### Dark Mode
-
-The app supports iOS dark mode:
-
-1. **Automatic**: Follows iOS system settings
-2. **Manual**: Settings → Appearance → Choose Light or Dark
-
-## Features Coming Soon
-
-- [ ] Spotify playback controls
-- [ ] Apple Watch companion app
-- [ ] Widgets for lock screen (iOS 16+)
-- [ ] iPad split-screen support
-- [ ] Live Activities for volume changes
-- [ ] Shortcuts app integration improvements
-
-## Privacy and Permissions
-
-The Mixlar Control app requests the following permissions:
-
-**Local Network Access** (iOS 14+)
-- Required to discover your PC on the same WiFi
-- Can be denied if using manual connection or Tailscale only
-
-**Face ID / Touch ID**
-- Optional biometric authentication
-- Keeps your mixer secure
-- Can be enabled in Settings
-
-The app **does not**:
-- Collect or store personal data on external servers
-- Track your usage
-- Require an account (besides Tailscale for remote access)
-- Access your contacts, photos, or other apps
-
-<Check>
-  All communication happens directly between your iPhone and PC. No data is sent to third parties.
-</Check>
-
-## Support
-
-### In-App Help
-
-Tap the **?** icon in the top-right corner for:
-- Quick start guide
-- FAQ
-- Connection troubleshooting
-- Contact support
-
-### Report a Bug
-
-Found an issue?
-
-1. Tap **Settings** → **About**
-2. Tap **Report Issue**
-3. Describe the problem
-4. Include screenshots if applicable
-5. Tap **Send**
-
-## Next Steps
-
-<CardGroup cols={2}>
-  <Card title="Web Controller Setup" icon="globe" href="/web-controller-setup">
-    Set up the desktop Web Controller plugin
-  </Card>
-  <Card title="Tailscale Guide" icon="shield" href="/remote-access-tailscale">
-    Enable secure remote access
-  </Card>
-  <Card title="Troubleshooting" icon="wrench" href="/troubleshooting">
-    Common issues and solutions
-  </Card>
-  <Card title="Security Best Practices" icon="lock" href="/security">
-    Keep your setup secure
-  </Card>
-</CardGroup>
-
-## App Information
-
-- **Version**: 1.0.0
-- **Size**: ~15 MB
-- **Requires**: iOS 14.0 or later
-- **Category**: Utilities
-- **Price**: Free
-- **Developer**: Mixlar
+**Can't find PC:**
+- Both on same WiFi?
+- Web Controller running?
+- Try manual connection
+
+**Tailscale not working:**
+- Tailscale running on both devices?
+- Same account?
+- Correct URL from Network tab?
+
+**Login fails:**
+- Check credentials in PC settings
+- Passwords are case-sensitive
