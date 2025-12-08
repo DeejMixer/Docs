@@ -38,6 +38,16 @@
             ]
           },
           {
+            "group": "Start Here",
+            "pages": [
+              "start-here/ios-app",
+              "start-here/quickstart",
+              "start-here/remote-access",
+              "start-here/web-controller"
+            ]
+          },
+          
+          {
             "group": "AI tools",
             "pages": [
               "ai-tools/cursor",
