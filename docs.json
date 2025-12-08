@@ -40,6 +40,74 @@
         ]
       }
     ],
+
+    "dropdowns": [
+      {
+        "dropdown": "Documentation",
+        "icon": "book-open",
+        "pages": [
+          "index",
+          "Start-Here/welcome",
+          "Start-Here/overview",
+          "Start-Here/connections"
+        ]
+      },
+      {
+        "dropdown": "Mixlar Connect",
+        "icon": "mobile-screen",
+        "pages": [
+          "mixlar-connect/setup",
+          "mixlar-connect/ios-setup"
+        ]
+      },
+      {
+        "dropdown": "Website",
+        "href": "https://mixlarlabs.com",
+        "icon": "globe"
+      }
+    ],
+
+    "products": [
+      {
+        "product": "Mixlar Mix",
+        "description": "Hardware + Mixer control documentation",
+        "icon": "sliders",
+        "groups": [
+          {
+            "group": "Controls",
+            "pages": [
+              "Start-Here/sliders",
+              "Start-Here/macros",
+              "Start-Here/profiles",
+              "Start-Here/Mixer Screens & Widgets"
+            ]
+          },
+          {
+            "group": "Software Features",
+            "pages": [
+              "Start-Here/toast-notifications",
+              "Start-Here/plugins"
+            ]
+          }
+        ]
+      },
+      {
+        "product": "Mixlar Connect",
+        "description": "iOS app + Web Viewer remote control system",
+        "icon": "smartphone",
+        "pages": [
+          "mixlar-connect/setup",
+          "mixlar-connect/ios-setup"
+        ]
+      },
+      {
+        "product": "Developer Tools",
+        "description": "Plugin API, notifications API, and SDK docs",
+        "icon": "code",
+        "href": "https://mixlarlabs.com/dev"
+      }
+    ],
+
     "global": {
       "anchors": [
         {
