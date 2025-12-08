@@ -9,37 +9,52 @@
   },
   "favicon": "/favicon.svg",
 
-  "navigation": [
-    {
-      "root": "/guides",
-      "label": "Guides",
-      "groups": [
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Guides",
+        "groups": [
+          {
+            "group": "Getting started",
+            "pages": [
+              "index",
+              "Start-Here/welcome",
+              "Start-Here/overview",
+              "Start-Here/connections",
+              "Start-Here/sliders",
+              "Start-Here/macros",
+              "Start-Here/profiles",
+              "Start-Here/Mixer Screens & Widgets",
+              "Start-Here/toast-notifications",
+              "Start-Here/plugins",
+              "Start-Here/Website&App"
+            ]
+          },
+          {
+            "group": "Mixlar Connect",
+            "pages": [
+              "mixlar-connect/setup",
+              "mixlar-connect/ios-setup"
+            ]
+          }
+        ]
+      }
+    ],
+    "global": {
+      "anchors": [
         {
-          "group": "Getting started",
-          "pages": [
-            "index",
-            "Start-Here/welcome",
-            "Start-Here/connections",
-            "Start-Here/sliders",
-            "Start-Here/profiles",
-            "Start-Here/macros",
-            "Start-Here/Mixer Screens & Widgets",
-            "Start-Here/toast-notifications",
-            "Start-Here/plugins",
-            "Start-Here/Website&App",
-            "development"
-          ]
+          "anchor": "Mixlar Labs",
+          "href": "https://mixlarlabs.com",
+          "icon": "globe"
         },
         {
-          "group": "Mixlar Connect",
-          "pages": [
-            "mixlar-connect/setup",
-            "mixlar-connect/ios-setup"
-          ]
+          "anchor": "Download",
+          "href": "https://mixlarlabs.com/download",
+          "icon": "download"
         }
       ]
     }
-  ],
+  },
 
   "logo": {
     "light": "/logo/Light.svg",
@@ -81,4 +96,3 @@
     }
   }
 }
-
