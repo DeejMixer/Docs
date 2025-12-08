@@ -17,6 +17,7 @@
             "group": "Getting started",
             "pages": [
               "index",
+              "Start-Here/welcome",
               "Start-Here/connections",
               "Start-Here/sliders",
               "Start-Here/profiles",
