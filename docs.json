@@ -12,31 +12,30 @@
     "tabs": [
       {
         "tab": "Guides",
-        "groups": [
-          {
-            "group": "Getting started",
-            "pages": [
-              "index",
-              "Start-Here/welcome",
-              "Start-Here/overview",
-              "Start-Here/connections",
-              "Start-Here/sliders",
-              "Start-Here/macros",
-              "Start-Here/profiles",
-              "Start-Here/Mixer Screens & Widgets",
-              "Start-Here/toast-notifications",
-              "Start-Here/plugins",
-              "Start-Here/Website&App"
-            ]
-          },
-          {
-            "group": "Mixlar Connect",
-            "pages": [
-              "mixlar-connect/setup",
-              "mixlar-connect/ios-setup"
-            ]
-          }
-        ]
+          "groups": [
+            {
+              "group": "Getting started",
+              "pages": [
+                "index",
+                "Start-Here/overview",
+                "Start-Here/connections",
+                "Start-Here/sliders",
+                "Start-Here/profiles",
+                "Start-Here/macros",
+                "Start-Here/Mixer Screens & Widgets",
+                "Start-Here/toast-notifications",
+                "Start-Here/plugins",
+                "Start-Here/Website&App"
+              ]
+            },
+            {
+              "group": "Mixlar Connect",
+              "pages": [
+                "mixlar-connect/setup",
+                "mixlar-connect/ios-setup"
+              ]
+            }
+          ]
       }
     ],
     "dropdowns": [
@@ -45,12 +44,11 @@
         "icon": "sliders",
         "pages": [
           "index",
-          "Start-Here/welcome",
           "Start-Here/overview",
           "Start-Here/connections",
           "Start-Here/sliders",
-          "Start-Here/macros",
           "Start-Here/profiles",
+          "Start-Here/macros",
           "Start-Here/Mixer Screens & Widgets",
           "Start-Here/toast-notifications",
           "Start-Here/plugins",
@@ -70,11 +68,20 @@
         "icon": "sliders",
         "groups": [
           {
+            "group": "Setup & Overview",
+            "pages": [
+              "index",
+              "Start-Here/overview",
+              "Start-Here/connections",
+              "Start-Here/Website&App"
+            ]
+          },
+          {
             "group": "Controls",
             "pages": [
               "Start-Here/sliders",
-              "Start-Here/macros",
               "Start-Here/profiles",
+              "Start-Here/macros",
               "Start-Here/Mixer Screens & Widgets"
             ]
           },
@@ -132,3 +139,4 @@
     }
   }
 }
+
