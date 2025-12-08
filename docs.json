@@ -3,7 +3,7 @@
   "theme": "maple",
   "name": "Mixlar Docs",
   "colors": {
-    "primary": "##bd4340",
+    "primary": "#bd4340",
     "light": "#db4e4b",
     "dark": "#782c2a"
   },
