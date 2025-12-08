@@ -43,27 +43,26 @@
 
     "dropdowns": [
       {
-        "dropdown": "Documentation",
-        "icon": "book-open",
+        "dropdown": "Mixlar Mix",
+        "icon": "sliders",
         "pages": [
           "index",
           "Start-Here/welcome",
           "Start-Here/overview",
-          "Start-Here/connections"
+          "Start-Here/connections",
+          "Start-Here/sliders",
+          "Start-Here/macros",
+          "Start-Here/profiles",
+          "Start-Here/Mixer Screens & Widgets",
+          "Start-Here/toast-notifications",
+          "Start-Here/plugins",
+          "Start-Here/Website&App"
         ]
       },
       {
-        "dropdown": "Mixlar Connect",
-        "icon": "mobile-screen",
-        "pages": [
-          "mixlar-connect/setup",
-          "mixlar-connect/ios-setup"
-        ]
-      },
-      {
-        "dropdown": "Website",
-        "href": "https://mixlarlabs.com",
-        "icon": "globe"
+        "dropdown": "Developer API",
+        "icon": "code",
+        "href": "/dev"     // You can change this to your real API docs route
       }
     ],
 
@@ -92,36 +91,12 @@
         ]
       },
       {
-        "product": "Mixlar Connect",
-        "description": "iOS app + Web Viewer remote control system",
-        "icon": "smartphone",
-        "pages": [
-          "mixlar-connect/setup",
-          "mixlar-connect/ios-setup"
-        ]
-      },
-      {
-        "product": "Developer Tools",
-        "description": "Plugin API, notifications API, and SDK docs",
-        "icon": "code",
-        "href": "https://mixlarlabs.com/dev"
+        "product": "Developer API",
+        "description": "Plugin API, notification API, and SDK documentation",
+        "icon": "api",
+        "href": "/dev"   // Link to where your future dev docs will go
       }
-    ],
-
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Mixlar Labs",
-          "href": "https://mixlarlabs.com",
-          "icon": "globe"
-        },
-        {
-          "anchor": "Download",
-          "href": "https://mixlarlabs.com/download",
-          "icon": "download"
-        }
-      ]
-    }
+    ]
   },
 
   "logo": {
@@ -164,3 +139,4 @@
     }
   }
 }
+
