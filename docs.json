@@ -38,23 +38,12 @@
           },
           {
             "group": "Start Here",
+            "icon": "rocket",
             "pages": [
-              {
-                "page": "Start-Here/ios-app",
-                "icon": "mobile-screen-button"
-              },
-              {
-                "page": "Start-Here/quickstart",
-                "icon": "rocket"
-              },
-              {
-                "page": "Start-Here/remote-access-tailscale",
-                "icon": "shield"
-              },
-              {
-                "page": "Start-Here/web-controller-setup",
-                "icon": "globe"
-              }
+              "Start-Here/ios-app",
+              "Start-Here/quickstart",
+              "Start-Here/remote-access-tailscale",
+              "Start-Here/web-controller-setup"
             ]
           },
           {
