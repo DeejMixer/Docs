@@ -3,9 +3,9 @@
   "theme": "mint",
   "name": "Mint Starter Kit",
   "colors": {
-    "primary": "#16A34A",
-    "light": "#07C983",
-    "dark": "#15803D"
+    "primary": "#bb3533",
+    "light": "#db403d",
+    "dark": "#802321"
   },
   "favicon": "/favicon.svg",
   "navigation": {
@@ -17,7 +17,6 @@
             "group": "Getting started",
             "pages": [
               "index",
-              "quickstart",
               "development"
             ]
           },
@@ -46,7 +45,6 @@
               "Start-Here/web-controller-setup"
             ]
           },
-          
           {
             "group": "AI tools",
             "pages": [
@@ -112,15 +110,15 @@
   },
   "contextual": {
     "options": [
-     "copy",
-     "view",
-     "chatgpt",
-     "claude",
-     "perplexity",
-     "mcp",
-     "cursor",
-     "vscode"
-   ]
+      "copy",
+      "view",
+      "chatgpt",
+      "claude",
+      "perplexity",
+      "mcp",
+      "cursor",
+      "vscode"
+    ]
   },
   "footer": {
     "socials": {
