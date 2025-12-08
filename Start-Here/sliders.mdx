@@ -1,116 +1,134 @@
 ---
 title: "Sliders"
-description: "Learn how to assign audio sources, system controls, and custom actions to your Mixlar Mix sliders."
+description: "Customize your Mixlar Mix sliders with audio sources, system controls, smart home actions, and more."
 ---
 
 # Sliders
 
-The sliders on your Mixlar Mix allow you to control audio levels, system actions, MIDI outputs, smart home features, and more.  
-Each slider can be assigned multiple inputs or actions to create a custom workflow that fits your setup.
-
----
-
-## Adding a Slider Source
-
-On the main Mixlar Control screen, each slider has a **+** button underneath it.
-
-Clicking this **+** icon opens the assignment window where you can choose what the slider will control.
+Sliders are the heart of your Mixlar Mix.  
+Each slider can control **audio**, **MIDI**, **system actions**, and even **smart home devices**—and each one can be color-coded to match your workflow.
 
 <Image
   src="/images/Screenshot-2025-12-08-11-21-28-AM.png"
-  alt="Slider assignment buttons"
+  alt="Slider assignment UI"
+  style={{ borderRadius: "12px", marginTop: "18px" }}
 />
 
 ---
 
-## The Assignment Window
+## 🎚️ Adding a Slider Source
 
-After clicking **+**, a new window appears where you can pick what the slider controls.  
-You can select **one or multiple sources** for each slider.
+To assign a slider, click the **+ button** beneath the slider on the main Mixlar Control page.
 
-### Available Tabs:
+This opens the **Assignment Window**, where you choose what the slider controls.  
+You can even bind **multiple sources** to the same slider for grouped control.
 
-### **🎧 Audio**
-Control application audio or system audio, such as:
+---
+
+## 🪟 The Assignment Window
+
+When the Assignment Window opens, you'll see several tabs across the top.  
+Each tab represents a different category of controls that your slider can manage.
+
+<Columns cols={2}>
+
+  <Card title="🎧 Audio Sources" href="#" shadow>
+    Control individual programs, game audio, browsers, chat apps, or global system audio.  
+    Great for Discord, games, music, streaming, and browsers.
+  </Card>
+
+  <Card title="🎹 MIDI Output" href="#" shadow>
+    Send MIDI CC values to DAWs like Ableton, FL Studio, Logic, or plugins.  
+    Ideal for music creators and streamers.
+  </Card>
+
+  <Card title="🏠 Smart Home" href="#" shadow>
+    (Requires setup)  
+    Control lights, scenes, smart speakers, or automation routines—right from your mixer.
+  </Card>
+
+  <Card title="⚙️ System Controls" href="#" shadow>
+    Manage system-level features like mic volume, speaker output, brightness, active windows, and media controls.
+  </Card>
+
+</Columns>
+
+---
+
+## 🔊 Audio Control Examples
+
+Some popular audio bindings include:
 
 - Game audio  
-- Music apps (Spotify, YouTube Music, browsers, etc.)  
-- Chat apps (Discord, Zoom, Teams)  
-- Specific Windows processes (e.g., `audiodg.exe`)  
-- System output volume  
+- Discord or Zoom chat  
+- Spotify / Music apps  
+- Browser audio  
+- System volume  
+- Specific Windows audio processes (e.g., `audiodg.exe`)
 
-### **🎹 MIDI**
-Use the slider to send MIDI CC values to DAWs or music software.
-
-### **🏠 Smart Home**
-*(Requires Smart Home setup)*
-
-Control:
-
-- Lights  
-- Scenes  
-- Smart devices  
-- Volume of smart speakers, etc.
-
-### **⚙️ System**
-This tab gives access to powerful system-level controls, such as:
-
-- Microphone volume  
-- Speaker output volume  
-- Screen brightness  
-- Switching active windows  
-- Media controls  
-- System actions  
-
-These features make Mixlar Mix especially useful for:
-
-- SonarGG setups  
-- Productivity workflows  
-- Stream control  
-- Improving accessibility
-
----
-
-## Multi-Binding
-
-Each slider can control **multiple sources at once**.
-
-For example:
-
-- Control Discord + YouTube volume together  
-- Control your mic volume + mic noise suppression  
-- Control all browser-based audio as one group  
-
-Just select more than one item in the assignment window before saving.
-
----
-
-## Custom Slider Colors
-
-To help you recognize sliders quickly, each slider can have a **custom color**.
-
-- By default, the color matches your theme  
-- Click the color box on the main screen to choose any color you want  
-- Many users color-code by category (e.g., purple = music, green = chat, red = mic)
-
-This is especially helpful on wireless setups or in low-light environments.
-
----
-
-## Saving & Using the Slider
-
-Once you’ve selected your inputs:
-
-1. Click **Save**
-2. The slider becomes active immediately
-3. You can test it by moving the physical slider on the Mixlar Mix
-
-Your Mixlar Mix will now control whatever you assigned—audio, MIDI, smart home devices, or system controls.
-
----
-
-## Next Steps
-
-<Card title="Profiles" icon="folder" href="/controls/profiles">
-  Learn how to save and switch between multiple slider layouts for gaming, streaming, and productivity.
+<Card title="Pro Tip" icon="lightbulb">
+You can select **more than one audio source** at a time to create a combined slider.
 </Card>
+
+---
+
+## 🎨 Custom Slider Colors
+
+Each slider can be color-coded for visual clarity.
+
+- Defaults to theme color  
+- Click the **color box** next to any slider  
+- Choose any custom color to match your workflow  
+
+Many users use colors like:
+
+- 🟣 Music  
+- 🟢 Chat  
+- 🔴 Microphone  
+- 🔵 Games  
+- 🟠 System  
+
+Color-coding makes it easy to identify sliders at a glance—especially in wireless mode.
+
+---
+
+## 🧩 Multi-Binding (Control Multiple Things at Once)
+
+Mixlar allows you to bind **multiple items** to the same slider.
+
+This is useful for:
+
+- Grouping browser + music + video audio  
+- Controlling all chat programs together  
+- Pairing mic volume with noise suppression levels  
+- Linking multiple smart devices to one slider  
+
+Just select more than one item in the Assignment Window and press **Save**.
+
+---
+
+## 🛠️ Saving & Using Your Slider
+
+After choosing your bindings:
+
+1. Click **Save**  
+2. Move the physical slider on your Mixlar Mix  
+3. The assigned sources will respond immediately  
+
+Your slider is now fully configured and ready to use.
+
+---
+
+## ➡️ Next Steps
+
+<Columns cols={2}>
+
+  <Card title="📁 Profiles" icon="folder" href="/controls/profiles">
+    Learn how to save different slider layouts for gaming, work, or streaming.
+  </Card>
+
+  <Card title="⌨️ Macros" icon="keyboard" href="/controls/macros">
+    Expand your setup with custom actions, shortcuts, and automations.
+  </Card>
+
+</Columns>
