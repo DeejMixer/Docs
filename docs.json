@@ -87,22 +87,20 @@
           }
         ]
       }
-    ],
-    "global": {
-      "anchors": [
-        {
-          "anchor": "Documentation",
-          "href": "https://mintlify.com/docs",
-          "icon": "book-open-cover"
-        },
-        {
-          "anchor": "Blog",
-          "href": "https://mintlify.com/blog",
-          "icon": "newspaper"
-        }
-      ]
-    }
+    ]
   },
+  "anchors": [
+    {
+      "anchor": "Documentation",
+      "href": "https://mintlify.com/docs",
+      "icon": "book-open-cover"
+    },
+    {
+      "anchor": "Blog",
+      "href": "https://mintlify.com/blog",
+      "icon": "newspaper"
+    }
+  ],
   "logo": {
     "light": "/logo/Light.svg",
     "dark": "/logo/Dark.svg"
