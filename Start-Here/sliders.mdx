@@ -5,8 +5,9 @@ description: "Customize your Mixlar Mix sliders with audio sources, system contr
 
 # Sliders
 
-Sliders are the heart of your Mixlar Mix.  
-Each slider can control **audio**, **MIDI**, **system actions**, and even **smart home devices**—and each one can be color-coded to match your workflow.
+Sliders are one of the core features of the Mixlar Mix.  
+Each slider can control **audio**, **MIDI**, **system actions**, or **smart home devices**.  
+You can also assign custom colors to keep your layout organized and easy to recognize.
 
 <Image
   src="/images/Screenshot-2025-12-08-11-21-28-AM.png"
@@ -16,119 +17,122 @@ Each slider can control **audio**, **MIDI**, **system actions**, and even **smar
 
 ---
 
-## 🎚️ Adding a Slider Source
+## Adding a slider source
 
-To assign a slider, click the **+ button** beneath the slider on the main Mixlar Control page.
+To assign a slider:
 
-This opens the **Assignment Window**, where you choose what the slider controls.  
-You can even bind **multiple sources** to the same slider for grouped control.
+1. Click the **+ button** underneath any slider  
+2. The **Assignment Window** will open  
+3. Choose what the slider should control  
+4. Save your selection  
+
+Sliders can control **single** or **multiple** sources.
 
 ---
 
-## 🪟 The Assignment Window
+## The assignment window
 
-When the Assignment Window opens, you'll see several tabs across the top.  
-Each tab represents a different category of controls that your slider can manage.
+Inside the Assignment Window, you'll see several tabs.  
+Each tab represents a different type of action a slider can control.
 
 <Columns cols={2}>
 
-  <Card title="🎧 Audio Sources" href="#" shadow>
-    Control individual programs, game audio, browsers, chat apps, or global system audio.  
-    Great for Discord, games, music, streaming, and browsers.
+  <Card title="Audio Sources" icon="volume-high" shadow>
+    Control individual applications, game audio, browsers, chat apps, or full system volume.
   </Card>
 
-  <Card title="🎹 MIDI Output" href="#" shadow>
-    Send MIDI CC values to DAWs like Ableton, FL Studio, Logic, or plugins.  
-    Ideal for music creators and streamers.
+  <Card title="MIDI Output" icon="music" shadow>
+    Send MIDI CC values to DAWs or music software.
   </Card>
 
-  <Card title="🏠 Smart Home" href="#" shadow>
+  <Card title="Smart Home" icon="house" shadow>
     (Requires setup)  
-    Control lights, scenes, smart speakers, or automation routines—right from your mixer.
+    Control lights, scenes, devices, and automations connected through Home Assistant.
   </Card>
 
-  <Card title="⚙️ System Controls" href="#" shadow>
-    Manage system-level features like mic volume, speaker output, brightness, active windows, and media controls.
+  <Card title="System Controls" icon="sliders" shadow>
+    Adjust microphone levels, speaker output, screen brightness, window switching, and more.
   </Card>
 
 </Columns>
 
 ---
 
-## 🔊 Audio Control Examples
+## Audio control examples
 
-Some popular audio bindings include:
+Common audio assignments include:
 
 - Game audio  
-- Discord or Zoom chat  
-- Spotify / Music apps  
+- Chat apps (Discord, Zoom, Teams)  
 - Browser audio  
-- System volume  
-- Specific Windows audio processes (e.g., `audiodg.exe`)
+- Spotify/music players  
+- System volume output  
+- Windows audio processes like `audiodg.exe`
 
-<Card title="Pro Tip" icon="lightbulb">
-You can select **more than one audio source** at a time to create a combined slider.
+<Card icon="lightbulb" title="Tip">
+Select multiple audio sources to create a grouped slider.
 </Card>
 
 ---
 
-## 🎨 Custom Slider Colors
+## Custom slider colors
 
-Each slider can be color-coded for visual clarity.
+Every slider can be assigned a custom color.
 
-- Defaults to theme color  
-- Click the **color box** next to any slider  
-- Choose any custom color to match your workflow  
+- Default color follows your theme  
+- Click the color square next to any slider to change it  
+- Colors help quickly identify slider purpose  
 
-Many users use colors like:
+Many users use:
 
-- 🟣 Music  
-- 🟢 Chat  
-- 🔴 Microphone  
-- 🔵 Games  
-- 🟠 System  
+- Purple for music  
+- Green for chat  
+- Red for microphone  
+- Blue for game audio  
+- Orange for system functions  
 
-Color-coding makes it easy to identify sliders at a glance—especially in wireless mode.
-
----
-
-## 🧩 Multi-Binding (Control Multiple Things at Once)
-
-Mixlar allows you to bind **multiple items** to the same slider.
-
-This is useful for:
-
-- Grouping browser + music + video audio  
-- Controlling all chat programs together  
-- Pairing mic volume with noise suppression levels  
-- Linking multiple smart devices to one slider  
-
-Just select more than one item in the Assignment Window and press **Save**.
+Color coding is especially helpful when using multiple profiles.
 
 ---
 
-## 🛠️ Saving & Using Your Slider
+## Multi-binding (controlling more than one thing)
 
-After choosing your bindings:
+Sliders can control more than one source at once.  
+This allows you to build grouped audio controls or hybrid system sliders.
+
+Examples:
+
+- Group all browser tabs + music players  
+- Control Discord + Zoom volume simultaneously  
+- Pair mic volume with noise suppression level  
+- Link multiple smart devices to one slider  
+
+Just select more than one item inside the Assignment Window.
+
+---
+
+## Saving and using your slider
+
+After choosing your assignments:
 
 1. Click **Save**  
 2. Move the physical slider on your Mixlar Mix  
-3. The assigned sources will respond immediately  
+3. The selected sources will adjust instantly  
 
-Your slider is now fully configured and ready to use.
+Your slider is now fully configured and ready for daily use.
 
 ---
 
-## ➡️ Next Steps
+## Next steps
 
 <Columns cols={2}>
 
-  <Card title="📁 Profiles" icon="folder" href="/controls/profiles">
-    Learn how to save different slider layouts for gaming, work, or streaming.
+  <Card title="Profiles" icon="folder" href="/controls/profiles">
+    Learn how to save and organize different slider setups for gaming, work, and streaming.
   </Card>
 
-  <Card title="⌨️ Macros" icon="keyboard" href="/controls/macros">
-    Expand your setup with custom actions, shortcuts, and automations.
+  <Card title="Macros" icon="keyboard" href="/controls/macros">
+    Add custom actions, shortcuts, automation steps, and more using macro buttons.
   </Card>
 
 </Columns>
