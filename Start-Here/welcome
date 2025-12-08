@@ -1,0 +1,227 @@
+---
+title: "Understanding Your Mixlar Mix"
+description: "A complete overview of the Mixlar Mix hardware, components, and capabilities."
+---
+
+# Welcome to Your Mixlar Mix
+
+Congratulations on your new **Mixlar Mix** — a compact, powerful, and fully customizable control surface built to enhance your workflow, productivity, and creativity.
+
+This page gives you a complete overview of your device before we walk through connecting, configuring, and personalizing it in the next steps of the Getting Started guide.
+
+<Panel title="Before You Begin">
+The Mixlar Mix hardware is designed to be intuitive and powerful.  
+Once you're familiar with the buttons, sliders, screens, and controls, continue to the next page to connect your Mixlar Mix using USB or BLE.
+</Panel>
+
+---
+
+# Mixlar Mix Hardware Overview
+
+The Mixlar Mix is built around a high-performance **ESP32-S3**, paired with a vibrant full-color display, precision faders, mechanical switches, wireless connectivity, and a layout that feels natural on the desk.
+
+Below is a breakdown of each major component.
+
+---
+
+## 3.5" Full-Color IPS Display
+
+- 3.5-inch IPS panel  
+- 320 × 480 RGB pixels  
+- Full-color graphics with wide viewing angles  
+- Adjustable brightness via Mixlar Control  
+
+The display is used for:
+
+- Real-time stats (CPU, GPU, RAM, network)  
+- Album art and Spotify playback  
+- Mixer screens and widgets  
+- Menus, profiles, and settings feedback  
+
+The screen is **not** a touchscreen. All navigation is done using the dial and buttons.
+
+---
+
+## 75mm Linear Faders (4x)
+
+- Four 75mm linear faders  
+- Smooth, precise travel  
+- Designed for audio, brightness, and other continuous controls  
+
+Each fader can be assigned to:
+
+- Application audio (games, chat apps, browsers, music players)  
+- System volume  
+- MIDI control (for compatible workflows)  
+- Smart home adjustment (when configured)  
+- Multi-binding (controlling more than one thing per fader)
+
+---
+
+## 9 Mechanical Macro Keys
+
+- 9 mechanical keys arranged in a 3×3 grid  
+- Tactile mechanical switches for reliable, satisfying presses  
+- Mapped through Mixlar Control to whatever actions you need  
+
+Use them for:
+
+- Hotkeys and shortcuts  
+- Streaming controls (OBS actions, scene changes, recording)  
+- App launches and website opens  
+- Multi-step sequences and automation  
+- Profile switching or page navigation  
+
+These keys are **not hot-swappable**—they are built in and chosen for durability.
+
+---
+
+## 4 Tactile Mute Buttons
+
+Each fader includes a dedicated mute button.
+
+Common uses:
+
+- Muting or unmuting individual audio sources  
+- Acting as Spotify transport controls (previous, play/pause, next, like) when that option is enabled in settings  
+- Triggering macros in certain modes  
+
+They provide clear tactile feedback so you can confidently mute or trigger actions without looking down for long.
+
+---
+
+## Master Volume Encoder (Digital Dial)
+
+- 360° digital encoder (infinite rotation)  
+- Integrated push-button  
+
+Default behavior:
+
+- Rotate: Adjust **Master Volume**  
+- Press and hold (about 1 second): Open the **page selection menu**  
+- Press: Confirm selection in menus  
+
+From the page selection menu you can switch between:
+
+- Main screen  
+- Stats screen  
+- Spotify screen  
+- ScreenSaver  
+
+---
+
+## Macro Page Navigation Buttons (2x)
+
+Two dedicated buttons on the device allow you to move between macro pages.
+
+- Quickly flip through four macro pages  
+- Up to 36 total macros (9 keys × 4 pages)  
+- Page state is remembered when you reconnect the device  
+
+These make it easy to separate workflows (for example: gaming, streaming, productivity, and media).
+
+---
+
+## Dual USB-C Ports
+
+The Mixlar Mix includes two USB-C ports:
+
+### USB-C Port A — Data + Power
+- Connects to Mixlar Control on your PC  
+- Handles all USB communication for sliders, macros, screens, firmware updates, and BLE pairing  
+- Powers the device during wired operation  
+
+### USB-C Port B — Power / BLE Use
+- Used primarily as a power input when running in **BLE wireless mode**  
+- Can be connected to a USB power adapter, battery pack, or second USB port on your PC  
+
+You can power the device from either port, and in many cases you can have both connected if it suits your setup.
+
+---
+
+## Wireless Connectivity (BLE 5.0)
+
+The Mixlar Mix supports **Bluetooth Low Energy 5.0**, allowing it to run wirelessly when paired through Mixlar Control.
+
+Wireless mode enables:
+
+- Slider and macro control over BLE  
+- Wireless stats and display updates  
+- Flexible mounting and cable management  
+
+BLE operation typically uses Port B (power only), while data flows over Bluetooth.  
+Wired USB mode is recommended for the lowest latency, but BLE is ideal for clean, cable-light setups.
+
+---
+
+## Powered by ESP32-S3
+
+At the core is the **ESP32-S3 microcontroller**, providing:
+
+- Dual-core performance for responsive UI  
+- Integrated BLE and USB support  
+- Low-power operation for wireless use  
+- Fast handling of macros, sliders, and animations  
+
+Firmware is updatable via Mixlar Control so you can benefit from improvements over time.
+
+---
+
+## Made in the USA
+
+Thank you for supporting a small business.
+
+Each Mixlar Mix is:
+
+- Designed and assembled in-house in the United States  
+- Individually tested before shipping  
+- Built with a focus on quality, reliability, and long-term support  
+
+Your purchase directly supports a small team building and improving these devices.
+
+---
+
+## Hardware Diagrams (Recommended Views)
+
+In the visual documentation and marketing materials, we recommend showing a few key views of the device to help users quickly understand the layout:
+
+- **Front view** with sliders, macro keys, mute buttons, dial, and screen labeled  
+- **Back view** showing the dual USB-C ports and any labels  
+- **Side view** highlighting the macro page navigation buttons and overall profile  
+- **Display close-up** showing stats, album art, or the main mixer UI  
+
+You can link to those diagrams or include them on this page or the product page for quick reference.
+
+---
+
+## What’s Next?
+
+<Steps>
+
+<Step title="Connect Your Mixlar Mix">
+Choose between USB or BLE and connect your device to Mixlar Control.
+</Step>
+
+<Step title="Customize Your Sliders">
+Assign audio sources, system controls, MIDI, and smart home actions.
+</Step>
+
+<Step title="Set Up Macros & Profiles">
+Create dedicated pages for gaming, streaming, productivity, and media.
+</Step>
+
+<Step title="Explore Screens & Widgets">
+Use the Main, Stats, Spotify, and ScreenSaver pages to bring your setup to life.
+</Step>
+
+</Steps>
+
+---
+
+<Card
+  title="Continue: Connecting Your Mixlar Mix"
+  icon="plug"
+  href="/Start-Here/connections"
+>
+  Set up wired USB mode or BLE wireless mode.
+</Card>
