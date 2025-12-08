@@ -12,95 +12,84 @@
     "tabs": [
       {
         "tab": "Guides",
-          "groups": [
-            {
-              "group": "Getting started",
-              "pages": [
-                "index",
-                "Start-Here/welcome",
-                "Start-Here/connections",
-                "Start-Here/sliders",
-                "Start-Here/profiles",
-                "Start-Here/macros",
-                "Start-Here/Mixer Screens & Widgets",
-                "Start-Here/toast-notifications",
-                "Start-Here/plugins",
-                "Start-Here/Website&App"
-              ]
-            },
-            {
-              "group": "Mixlar Connect",
-              "pages": [
-                "mixlar-connect/setup",
-                "mixlar-connect/ios-setup"
-              ]
-            }
-          ]
-      }
-    ],
-    "dropdowns": [
-      {
-        "dropdown": "Mixlar Mix",
-        "icon": "sliders",
-        "pages": [
-          "index",
-          "Start-Here/welcome",
-          "Start-Here/connections",
-          "Start-Here/sliders",
-          "Start-Here/profiles",
-          "Start-Here/macros",
-          "Start-Here/Mixer Screens & Widgets",
-          "Start-Here/toast-notifications",
-          "Start-Here/plugins",
-          "Start-Here/Website&App"
-        ]
-      },
-      {
-        "dropdown": "Developer API",
-        "icon": "code",
-        "href": "/dev"
-      }
-    ],
-    "products": [
-      {
-        "product": "Mixlar Mix",
-        "description": "Hardware + Mixer control documentation",
-        "icon": "sliders",
         "groups": [
           {
-            "group": "Setup & Overview",
+            "group": "Getting started",
             "pages": [
               "index",
-              "Start-Here/overview",
+              "Start-Here/welcome",
               "Start-Here/connections",
-              "Start-Here/Website&App"
-            ]
-          },
-          {
-            "group": "Controls",
-            "pages": [
               "Start-Here/sliders",
               "Start-Here/profiles",
               "Start-Here/macros",
-              "Start-Here/Mixer Screens & Widgets"
+              "Start-Here/Mixer Screens & Widgets",
+              "Start-Here/toast-notifications",
+              "Start-Here/plugins",
+              "Start-Here/Website&App",
+              "development"
             ]
           },
           {
-            "group": "Software Features",
+            "group": "Customization",
             "pages": [
-              "Start-Here/toast-notifications",
-              "Start-Here/plugins"
+              "essentials/settings",
+              "essentials/navigation"
+            ]
+          },
+          {
+            "group": "Writing content",
+            "pages": [
+              "essentials/markdown",
+              "essentials/code",
+              "essentials/images",
+              "essentials/reusable-snippets"
+            ]
+          },
+          {
+            "group": "AI tools",
+            "pages": [
+              "ai-tools/cursor",
+              "ai-tools/claude-code",
+              "ai-tools/windsurf"
             ]
           }
         ]
       },
       {
-        "product": "Developer API",
-        "description": "Plugin API, notification API, and SDK documentation",
-        "icon": "api",
-        "href": "/dev"
+        "tab": "API reference",
+        "groups": [
+          {
+            "group": "API documentation",
+            "pages": [
+              "api-reference/introduction"
+            ]
+          },
+          {
+            "group": "Endpoint examples",
+            "pages": [
+              "api-reference/endpoint/get",
+              "api-reference/endpoint/create",
+              "api-reference/endpoint/delete",
+              "api-reference/endpoint/webhook"
+            ]
+          }
+        ]
       }
-    ]
+    ],
+    "global": {
+      "anchors": [
+        {
+          "anchor": "Documentation",
+          "href": "https://mintlify.com/docs",
+          "icon": "book-open-cover"
+        },
+        {
+          "anchor": "Blog",
+          "href": "https://mintlify.com/blog",
+          "icon": "newspaper"
+        }
+      ]
+    }
   },
   "logo": {
     "light": "/logo/Light.svg",
@@ -110,7 +99,7 @@
     "links": [
       {
         "label": "Support",
-        "href": "mailto:contact@mixlarlabs.com"
+        "href": "mailto:hi@mintlify.com"
       }
     ],
     "primary": {
@@ -121,22 +110,21 @@
   },
   "contextual": {
     "options": [
-      "copy",
-      "view",
-      "chatgpt",
-      "claude",
-      "perplexity",
-      "mcp",
-      "cursor",
-      "vscode"
-    ]
+     "copy",
+     "view",
+     "chatgpt",
+     "claude",
+     "perplexity",
+     "mcp",
+     "cursor",
+     "vscode"
+   ]
   },
   "footer": {
     "socials": {
-      "x": "https://x.com/mixlarlabs",
-      "github": "https://github.com/mixlarlabs",
-      "linkedin": "https://www.linkedin.com"
+      "x": "https://x.com/mintlify",
+      "github": "https://github.com/mintlify",
+      "linkedin": "https://linkedin.com/company/mintlify"
     }
   }
 }
-
