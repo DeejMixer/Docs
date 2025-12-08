@@ -1,0 +1,231 @@
+---
+title: "Mixer Screens & Widgets"
+description: "Navigate and customize the four main Mixlar Mix screens."
+---
+
+# Mixer Screens & Widgets
+
+Your Mixlar Mix has four primary screens:
+
+- Main Control
+- Spotify
+- Stats
+- ScreenSaver
+
+You can switch pages by **pressing and holding the Master Volume dial for one second**.  
+A page menu will appear—rotate the dial to highlight a screen, then press to select it.
+
+---
+
+## Main Control Screen
+
+The Main Control screen is the default view when your mixer is connected.
+
+<Image
+  src="/images/mixer-main-control.png"
+  alt="Mixlar Mix main control screen with sliders and macro grid"
+  style={{ borderRadius: "12px", marginTop: "16px" }}
+/>
+
+It shows:
+
+- All active **sliders**
+- The **macro button grid**
+- Connection state (for example, Connected to PC)
+- Master volume percentage
+
+This screen reflects whatever you’ve configured in the **Sliders** and **Macros** sections of Mixlar Control. There is no extra setup required here.
+
+---
+
+## Spotify Screen
+
+The Spotify screen provides a full-screen player view with large text and transport controls.  
+It also powers Spotify macros and toast overlays.
+
+<Image
+  src="/images/mixer-spotify-screen.png"
+  alt="Spotify full-screen player on the mixer"
+  style={{ borderRadius: "12px", marginTop: "16px" }}
+/>
+
+### Enable Spotify
+
+1. Open **Settings → Connections → Spotify** in Mixlar Control.  
+2. Click **Sign in with Spotify**.  
+3. Complete the login in your browser.  
+
+Once connected, the Spotify page becomes available on the mixer and can be selected from the page menu.
+
+### What the Spotify screen shows
+
+- Current song title and artist  
+- Next track in the queue  
+- A background color that syncs with the album art  
+
+### Use mute buttons as Spotify controls
+
+You can repurpose the four mute buttons as transport controls when the Spotify page is active.
+
+In Mixlar Control:
+
+1. Go to **Settings → General → Behaviors**.  
+2. Enable **Use Mute Buttons for Spotify Controls**.
+
+When this option is enabled and you’re on the Spotify page:
+
+- Mute 1: Previous track  
+- Mute 2: Play / Pause  
+- Mute 3: Next track  
+- Mute 4: Like / Heart the current song  
+
+---
+
+## Spotify Toast Overlay
+
+The Spotify connection also enables a compact overlay that can appear on **any screen**, not just the Spotify page.
+
+The overlay can show:
+
+- Current song and artist  
+- When music is paused or resumed  
+- When a track is liked or unliked  
+
+Configure it under:
+
+**Settings → Notifications → Spotify**
+
+There you can:
+
+- Turn Spotify notifications on or off  
+- Adjust how long they stay on screen  
+- Prevent them from appearing while you are already on the Spotify page  
+
+<Image
+  src="/images/spotify-toast-example.png"
+  alt="Example of Spotify toast overlay"
+  style={{ borderRadius: "12px", marginTop: "16px" }}
+/>
+
+---
+
+## Stats Screen
+
+The Stats screen focuses on system monitoring. It shows live widgets for CPU, GPU, RAM, and network activity.
+
+<Image
+  src="/images/mixer-stats-screen.png"
+  alt="PC stats widgets screen"
+  style={{ borderRadius: "12px", marginTop: "16px" }}
+/>
+
+Typical tiles include:
+
+- CPU usage, clock speed, and temperature  
+- GPU usage, power draw, and temperature  
+- RAM usage  
+- Fan speeds  
+- Network upload/download and latency  
+
+The Stats screen requires no additional configuration in most setups. As long as Mixlar Control is running on your PC, data will populate automatically.
+
+---
+
+## ScreenSaver Screen
+
+The ScreenSaver page is a flexible, always-on view that can show the time, weather, and current song, with a customizable background.
+
+<Image
+  src="/images/mixer-clock-screen.png"
+  alt="Clock, date, weather, and now playing on the screensaver"
+  style={{ borderRadius: "12px", marginTop: "16px" }}
+/>
+
+Open **Settings → ScreenSaver** in Mixlar Control to configure it.
+
+### Behavior tab
+
+<Image
+  src="/images/screensaver-behavior.png"
+  alt="ScreenSaver behavior settings in Mixlar Control"
+  style={{ borderRadius: "12px", marginTop: "16px" }}
+/>
+
+Key options:
+
+- **Enable ScreenSaver** – master on/off  
+- **Enable on sub-screens (Spotify, Stats)** – choose whether the ScreenSaver can activate while those pages are visible  
+- **Timeout** – how long the mixer waits (for example 5, 10, or 30 minutes) before switching to ScreenSaver  
+- **Use 24-hour time format** – optional time display style  
+
+### Weather tab
+
+<Image
+  src="/images/screensaver-weather.png"
+  alt="Weather configuration for the screensaver"
+  style={{ borderRadius: "12px", marginTop: "16px" }}
+/>
+
+Here you can:
+
+- Enable or disable weather  
+- Choose a provider  
+- Set a location (or use auto-detect)  
+- Toggle Celsius vs Fahrenheit  
+
+Weather information refreshes periodically and appears in the top corner of the ScreenSaver.
+
+### Theme tab
+
+<Image
+  src="/images/screensaver-theme.png"
+  alt="Background color theme options"
+  style={{ borderRadius: "12px", marginTop: "16px" }}
+/>
+
+Use this tab to:
+
+- Select a preset background color  
+- Use a custom color (enter a hex value)  
+
+This color applies to the ScreenSaver and helps it match your room or desktop theme.
+
+### Spotify tab
+
+<Image
+  src="/images/screensaver-spotify.png"
+  alt="Enable Spotify integration on the screensaver"
+  style={{ borderRadius: "12px", marginTop: "16px" }}
+/>
+
+When **Enable Spotify** is turned on, the ScreenSaver can show:
+
+- Current song  
+- Artist  
+- A minimal now-playing indicator at the bottom of the screen  
+
+---
+
+## Navigating Between Screens
+
+To change pages on the mixer at any time:
+
+1. **Press and hold** the Master Volume dial for about **one second**.  
+2. A page selector will appear.  
+3. Rotate the dial to highlight **Main**, **Spotify**, **Stats**, or **ScreenSaver**.  
+4. Press the dial again to confirm.
+
+This works whether you are connected over USB or BLE.
+
+---
+
+## Next steps
+
+<Columns cols={2}>
+  <Card title="Customize sliders" icon="sliders" href="/Start-Here/sliders">
+    Learn how to assign apps, system audio, and smart home controls to each slider.
+  </Card>
+  <Card title="Use macros on each screen" icon="keyboard" href="/Start-Here/macros">
+    Build shortcuts and multi-step actions that pair with your Spotify, stats, and main control views.
+  </Card>
+</Columns>
