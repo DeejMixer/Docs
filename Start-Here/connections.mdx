@@ -1,127 +1,166 @@
 ---
 title: "Connecting Your Mixlar Mix"
-description: "Learn how to connect your Mixlar Mix using USB or Bluetooth Low Energy (BLE)."
+description: "Set up a USB or wireless (BLE) connection between your Mixlar Mix and Mixlar Control."
 ---
 
-# Connecting Your Mixlar Mix
+<Info>
+  **Prerequisites**
 
-Your Mixlar Mix can connect to Mixlar Control in two ways:
+  - Mixlar Control installed on your computer  
+  - Mixlar Mix connected via USB Type-C  
+  - For wireless mode: a PC with Bluetooth Low Energy (BLE) support or a Mixlar BLE dongle
+</Info>
 
-- **USB Type-C (recommended for first-time setup)**
-- **Bluetooth Low Energy (BLE) for wireless mode**
-
-Below are step-by-step instructions for both connection methods.
-
----
-
-## 🔌 USB Type-C Connection
-
-USB mode is the simplest and most reliable way to connect your Mixlar Mix.
-
-### **1. Open the Device Settings**
-Click the **gear icon** in the top-right corner of Mixlar Control.
-
-<Image
-  src="/images/45bd0bba-f344-40bd-800c-741a7234a60b.png"
-  alt="Gear icon for accessing settings"
-/>
-
-### **2. Select the Device Tab**
-From the left sidebar, choose **Device**.
-
-<Image
-  src="/images/d02730ac-e7ab-4c74-aa1a-f6b3352a832a.png"
-  alt="Device settings and COM port list"
-/>
-
-### **3. Choose a COM Port**
-Open the COM Port dropdown.
-
-- Your COM port naming may differ depending on your computer  
-- It is **usually not COM1**  
-- Select each one until the mixer connects  
-
-### **4. Click Connect**
-Once connected, your Mixlar Mix will appear on the main screen.
-
-<Image
-  src="/images/a28ae6bd-341b-4c05-90b3-a9856759c86e.png"
-  alt="Mixlar Mix main screen showing sliders"
-/>
-
-<Card icon="info-circle" title="Tip">
-You can confirm USB mode by checking the **USB icon** on your Mixlar Mix home screen.
-</Card>
+Follow these steps to connect your Mixlar Mix to Mixlar Control using USB, then optionally enable wireless (BLE) mode.
 
 ---
 
-## 📡 Wireless (BLE) Connection
+# USB connection (COM port setup)
 
-Bluetooth Low Energy allows your Mixlar Mix to be used **completely wirelessly**.  
-Your PC **must** support BLE or you must use the **Mixlar BLE Dongle**.
+<Steps>
+  <Step title="Open device settings">
 
-### **Before You Begin**
-- Keep the Mixlar Mix **plugged in** during pairing  
-- Ensure the **Connections** page is open in Mixlar Control  
-- Select the **Wireless** tab at the top  
+  Launch **Mixlar Control** and click the **gear icon** in the top-right corner to open the settings panel.
 
-<Image
-  src="/images/Screenshot-2025-12-08-10-53-55-AM.png"
-  alt="Wireless tab and BLE connection interface"
-/>
+  <Image
+    src="/images/45bd0bba-f344-40bd-800c-741a7234a60b.png"
+    alt="Gear icon for accessing settings"
+    style={{ borderRadius: "12px", marginTop: "12px" }}
+  />
+  </Step>
 
----
+  <Step title="Go to the Device tab">
 
-## **Step-by-Step BLE Setup**
+  In the left sidebar, select **Device**.  
+  This is where you configure the USB connection and COM port.
 
-### **1. Pair via USB**
-On the Wireless tab, click **Pair via USB**.
+  <Image
+    src="/images/d02730ac-e7ab-4c74-aa1a-f6b3352a832a.png"
+    alt="Device tab and COM port dropdown"
+    style={{ borderRadius: "12px", marginTop: "12px" }}
+  />
+  </Step>
 
-This securely links the software to your device before going wireless.
+  <Step title="Select the COM port">
 
-### **2. Unplug Your Mixer**
-Disconnect the USB cable, then power the mixer using:
+  Open the **COM Port** dropdown and choose a port.
 
-- The internal battery, **or**  
-- An external USB power source (not connected to the PC)
+  - The correct port name depends on your system  
+  - It is usually **not** `COM1`  
+  - If you are unsure, try each option until the mixer connects
 
-### **3. Wait for the Connect Screen**
-Your Mixlar Mix will show a **Connect** screen once it is ready.
+  Then click **Connect**. If successful, the status will change to “Connected”.
+  </Step>
 
-### **4. Press Connect on the Mixer**
-Tap the **Connect** button on the mixer display to begin wireless pairing.
+  <Step title="Confirm connection on the main screen">
 
-Once connected, the device will appear in the list as **Mixlar Control XXXX**.
+  Close the settings panel.  
+  On the main Mixlar Control screen, you should now see your sliders active and responding.
 
----
+  <Image
+    src="/images/a28ae6bd-341b-4c05-90b3-a9856759c86e.png"
+    alt="Main Mixlar Control window with sliders"
+    style={{ borderRadius: "12px", marginTop: "12px" }}
+  />
 
-## 🧠 Connection Status Tips
-
-You can always tell how your Mixlar Mix is connected:
-
-- **Wireless icon** → BLE connection  
-- **USB icon** → Wired USB mode  
-
-If you see the wireless icon on the mixer home screen, you are in BLE mode.
-
----
-
-## ⚠️ Requirements for BLE
-
-To use wireless mode, your system needs:
-
-- **Bluetooth Low Energy (BLE) support**, or  
-- The **Mixlar BLE USB Dongle**  
-
-If your PC does not support BLE, wireless mode will not function.
+  The Mixlar Mix will also show a **USB icon** on the home screen to indicate a wired connection.
+  </Step>
+</Steps>
 
 ---
 
-## You're Connected!
+## Wireless (BLE) connection
 
-Your Mixlar Mix is now ready to use, wired or wireless.  
-Continue to the next section to start configuring sliders, macros, profiles, and more.
+Once USB is working, you can switch to wireless mode using Bluetooth Low Energy.
 
-<Card title="Next: Customizing Sliders" icon="sliders" href="/controls/sliders">
-  Learn how to assign audio channels and configure your Mixlar Mix controls.
-</Card>
+<Info>
+  Your computer must support **Bluetooth Low Energy (BLE)** or use the **Mixlar BLE dongle** for wireless mode to work.
+</Info>
+
+<Steps>
+  <Step title="Open the Connections page">
+
+  In the settings sidebar, go to **Connections** and select the **Wireless** tab at the top.
+
+  <Image
+    src="/images/Screenshot-2025-12-08-10-53-55-AM.png"
+    alt="Connections page with Wireless tab selected"
+    style={{ borderRadius: "12px", marginTop: "12px" }}
+  />
+  </Step>
+
+  <Step title="Pair via USB">
+
+  With your Mixlar Mix still plugged in via USB, click **Pair via USB**.  
+  This links the device to Mixlar Control for wireless use.
+  </Step>
+
+  <Step title="Power the mixer without USB">
+
+  Unplug the USB data cable, then power the Mixlar Mix using:
+
+  - Its battery, or  
+  - An external USB power source (not connected to the PC)
+  </Step>
+
+  <Step title="Connect from the mixer">
+
+  When the Mixlar Mix shows the wireless **Connect** screen, press the **Connect** button on the device.  
+  The device will appear in the Wireless list (for example: `Mixlar Control E864`), and the connection will switch to BLE.
+
+  On the mixer home screen:
+
+  - A **wireless icon** indicates BLE mode  
+  - A **USB icon** indicates wired mode
+  </Step>
+</Steps>
+
+---
+
+## Connection status overview
+
+- **USB icon on mixer** → connected via wired USB  
+- **Wireless icon on mixer** → connected via BLE  
+- You can safely switch between USB and wireless as needed
+
+---
+
+## Troubleshooting
+
+<AccordionGroup>
+  <Accordion title="The mixer does not appear on any COM port">
+    - Make sure the Mixlar Mix is powered on and connected directly (avoid unpowered hubs).  
+    - Try a different USB port or cable.  
+    - Close other audio/control apps that might be locking the device.  
+    - Restart Mixlar Control and re-open the **Device** tab.
+  </Accordion>
+
+  <Accordion title="Status stays Disconnected after selecting a COM port">
+    - Try another COM port from the dropdown (it is rarely `COM1`).  
+    - Unplug and reconnect the Mixlar Mix, then click **Refresh** next to the COM dropdown and try again.  
+    - Check your system's Device Manager (Windows) or System Information (macOS) to confirm the device is detected.
+  </Accordion>
+
+  <Accordion title="Wireless option not working">
+    - Confirm your PC supports Bluetooth Low Energy or that the Mixlar BLE dongle is plugged in.  
+    - Make sure you have paired **via USB** first in the Wireless tab.  
+    - Keep the Mixlar Mix within Bluetooth range and avoid heavy interference.  
+    - If it still fails, unplug the device, restart Mixlar Control, and repeat the pairing steps.
+  </Accordion>
+</AccordionGroup>
+
+---
+
+## Next steps
+
+<Columns cols={2}>
+
+  <Card title="Sliders" icon="sliders" href="/controls/sliders">
+    Configure what each slider controls, including audio, system actions, MIDI, and smart home devices.
+  </Card>
+
+  <Card title="Profiles" icon="folder" href="/controls/profiles">
+    Save different layouts for gaming, streaming, and productivity once your connection is set up.
+  </Card>
+
+</Columns>
