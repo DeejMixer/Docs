@@ -17,7 +17,7 @@
               "group": "Getting started",
               "pages": [
                 "index",
-                "Start-Here/overview",
+                "Start-Here/welcome",
                 "Start-Here/connections",
                 "Start-Here/sliders",
                 "Start-Here/profiles",
@@ -44,7 +44,7 @@
         "icon": "sliders",
         "pages": [
           "index",
-          "Start-Here/overview",
+          "Start-Here/welcome",
           "Start-Here/connections",
           "Start-Here/sliders",
           "Start-Here/profiles",
