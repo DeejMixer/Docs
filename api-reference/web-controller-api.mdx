@@ -1,0 +1,1161 @@
+---
+title: Web Controller API
+description: Complete REST API and WebSocket documentation for web-based remote control
+version: 1.0
+default_port: 5000
+---
+
+# Web Controller API
+
+The Web Controller provides a complete REST API and WebSocket interface for remote control of your Mixlar device from web browsers or mobile apps.
+
+## Base URL
+
+```
+http://localhost:5000
+```
+
+**Port**: Configurable in plugin settings (default: 5000)
+
+## Authentication
+
+The Web Controller supports optional password protection.
+
+### Session-Based Authentication
+
+When authentication is enabled:
+
+1. **Login Required**: All endpoints require valid session
+2. **Login Endpoint**: `POST /api/auth/login`
+3. **Session Cookie**: `mixlar_session` (HttpOnly)
+4. **Session Timeout**: Configurable (default: 24 hours)
+
+### Login Flow
+
+```javascript
+// 1. Check auth status
+const status = await fetch('/api/auth/status').then(r => r.json());
+
+if (status.auth_enabled && !status.authenticated) {
+  // 2. Show login form
+  const response = await fetch('/api/auth/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      username: 'admin',
+      password: 'your-password',
+      remember: true
+    })
+  });
+
+  // 3. Redirect to main page
+  if (response.ok) {
+    window.location.href = '/';
+  }
+}
+```
+
+## API Endpoints
+
+### Authentication
+
+#### Check Auth Status
+
+```http
+GET /api/auth/status
+```
+
+**Authentication**: Not required
+
+**Response**: `200 OK`
+```json
+{
+  "auth_enabled": true,
+  "authenticated": false,
+  "username": null
+}
+```
+
+---
+
+#### Login
+
+```http
+POST /api/auth/login
+```
+
+**Request Body**:
+```json
+{
+  "username": "admin",
+  "password": "your-password",
+  "remember": true
+}
+```
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "redirect": "/"
+}
+```
+
+**Error Response**: `401 Unauthorized`
+```json
+{
+  "error": "Invalid username or password"
+}
+```
+
+---
+
+#### Logout
+
+```http
+POST /api/auth/logout
+```
+
+**Response**: `200 OK`
+```json
+{
+  "success": true
+}
+```
+
+---
+
+### System Status
+
+#### Get Overall Status
+
+```http
+GET /api/status
+```
+
+**Authentication**: Required
+
+**Response**: `200 OK`
+```json
+{
+  "connected": true,
+  "port": "COM3",
+  "page": "MAIN",
+  "firmware_version": "1.2.0",
+  "app_version": "1.5"
+}
+```
+
+---
+
+### Sliders
+
+#### Get All Sliders
+
+```http
+GET /api/sliders
+```
+
+**Response**: `200 OK`
+```json
+{
+  "sliders": [
+    {
+      "index": 1,
+      "value": 75,
+      "assignment": {
+        "type": "app",
+        "names": ["Spotify.exe"]
+      },
+      "label": "Spotify",
+      "muted": false
+    },
+    {
+      "index": 2,
+      "value": 50,
+      "assignment": {
+        "type": "system_default_output"
+      },
+      "label": "System",
+      "muted": false
+    }
+  ]
+}
+```
+
+---
+
+#### Set Slider Value
+
+```http
+POST /api/sliders/{index}
+```
+
+**Path Parameters**:
+- `index` (integer): Slider index (1-4)
+
+**Request Body**:
+```json
+{
+  "value": 75
+}
+```
+
+**Constraints**:
+- `value`: 0-100 (integer)
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "index": 1,
+  "value": 75
+}
+```
+
+---
+
+#### Get Slider Assignment
+
+```http
+GET /api/sliders/{index}/assignment
+```
+
+**Response**: `200 OK`
+```json
+{
+  "type": "app",
+  "names": ["Spotify.exe", "Discord.exe"]
+}
+```
+
+**Assignment Types**:
+- `system_default_output` - System output volume
+- `system_default_input` - Microphone volume
+- `app` - Specific application(s)
+- `unassigned` - No assignment
+
+---
+
+#### Set Slider Assignment
+
+```http
+POST /api/sliders/{index}/assignment
+```
+
+**Request Body**:
+```json
+{
+  "type": "specific_app",
+  "names": ["Spotify.exe", "Discord.exe"]
+}
+```
+
+**For System Assignments**:
+```json
+{
+  "type": "system_default_output"
+}
+```
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "assignment": {
+    "type": "app",
+    "names": ["Spotify.exe"]
+  }
+}
+```
+
+---
+
+#### Get Available Audio Sessions
+
+```http
+GET /api/audio/sessions
+```
+
+**Response**: `200 OK`
+```json
+{
+  "sessions": [
+    {
+      "name": "Spotify.exe",
+      "displayName": "Spotify"
+    },
+    {
+      "name": "Discord.exe",
+      "displayName": "Discord"
+    }
+  ],
+  "systemOptions": [
+    {
+      "name": "system_default_output",
+      "displayName": "System Output"
+    },
+    {
+      "name": "system_default_input",
+      "displayName": "System Input (Mic)"
+    },
+    {
+      "name": "unassigned",
+      "displayName": "Unassigned"
+    }
+  ]
+}
+```
+
+---
+
+### Mute Controls
+
+#### Get All Mute States
+
+```http
+GET /api/mutes
+```
+
+**Response**: `200 OK`
+```json
+{
+  "individual": [false, true, false, false],
+  "master": false
+}
+```
+
+---
+
+#### Toggle Individual Mute
+
+```http
+POST /api/mutes/{index}
+```
+
+**Path Parameters**:
+- `index` (integer): Mute button index (1-4)
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "index": 1,
+  "muted": true,
+  "message": "Mute toggle requested"
+}
+```
+
+---
+
+#### Toggle Master Mute
+
+```http
+POST /api/mutes/master
+```
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "muted": true,
+  "message": "Master mute toggle requested"
+}
+```
+
+---
+
+### Master Volume
+
+#### Get Master Volume
+
+```http
+GET /api/volume/master
+```
+
+**Response**: `200 OK`
+```json
+{
+  "volume": 50
+}
+```
+
+---
+
+#### Set Master Volume
+
+```http
+POST /api/volume/master
+```
+
+**Request Body**:
+```json
+{
+  "value": 75
+}
+```
+
+**Constraints**:
+- `value`: 0-100 (integer)
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "volume": 75
+}
+```
+
+---
+
+### Macros
+
+#### Get All Macros
+
+```http
+GET /api/macros
+```
+
+**Response**: `200 OK`
+```json
+{
+  "current_page": 0,
+  "page_names": {
+    "0": "Main",
+    "1": "OBS",
+    "2": "Smart Home",
+    "3": "Custom"
+  },
+  "pages": {
+    "0": [
+      {
+        "type": "hotkey",
+        "name": "Screenshot",
+        "key": "PrintScreen",
+        "icon": "camera"
+      }
+    ]
+  }
+}
+```
+
+---
+
+#### Get Macro Page Info
+
+```http
+GET /api/macros/pages
+```
+
+**Response**: `200 OK`
+```json
+{
+  "current": 0,
+  "names": {
+    "0": "Main",
+    "1": "OBS",
+    "2": "Smart Home",
+    "3": "Custom"
+  }
+}
+```
+
+---
+
+#### Change Macro Page
+
+```http
+POST /api/macros/page
+```
+
+**Note**: This endpoint returns `403 Forbidden`. Use the desktop app or hardware to switch pages.
+
+**Response**: `403 Forbidden`
+```json
+{
+  "error": "Web controller cannot change macro page. Use desktop app or hardware to switch pages."
+}
+```
+
+---
+
+#### Trigger Macro
+
+```http
+POST /api/macros/trigger
+```
+
+**Request Body**:
+```json
+{
+  "index": 0,
+  "page": 0
+}
+```
+
+**Parameters**:
+- `index` (integer): Macro index (0-8)
+- `page` (integer, optional): Page index (0-3), defaults to current page
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "index": 0,
+  "page": 0,
+  "macro": "Screenshot"
+}
+```
+
+---
+
+### Smart Home
+
+#### Get All Devices
+
+```http
+GET /api/smarthome
+```
+
+**Response**: `200 OK`
+```json
+{
+  "connected": true,
+  "devices": [
+    {
+      "entity_id": "light.living_room",
+      "friendly_name": "Living Room Light",
+      "state": "on",
+      "brightness": 200,
+      "domain": "light"
+    }
+  ]
+}
+```
+
+---
+
+#### Toggle Device
+
+```http
+POST /api/smarthome/toggle
+```
+
+**Request Body**:
+```json
+{
+  "entity_id": "light.living_room"
+}
+```
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "entity_id": "light.living_room",
+  "state": "off"
+}
+```
+
+---
+
+#### Set Light Brightness
+
+```http
+POST /api/smarthome/brightness
+```
+
+**Request Body**:
+```json
+{
+  "entity_id": "light.living_room",
+  "value": 75
+}
+```
+
+**Constraints**:
+- `value`: 0-100 (integer)
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "entity_id": "light.living_room",
+  "brightness": 75
+}
+```
+
+---
+
+### OBS Studio
+
+#### Get Scenes
+
+```http
+GET /api/obs/scenes
+```
+
+**Response**: `200 OK`
+```json
+{
+  "scenes": [
+    "Main Scene",
+    "Gaming",
+    "BRB"
+  ]
+}
+```
+
+**Error Response**: `400 Bad Request`
+```json
+{
+  "error": "OBS not connected"
+}
+```
+
+---
+
+#### Switch Scene
+
+```http
+POST /api/obs/scene
+```
+
+**Request Body**:
+```json
+{
+  "scene_name": "Gaming"
+}
+```
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "scene": "Gaming"
+}
+```
+
+---
+
+#### Get Sources
+
+```http
+GET /api/obs/sources
+```
+
+**Response**: `200 OK`
+```json
+{
+  "sources": [
+    "Webcam",
+    "Screen Capture",
+    "Alert Box"
+  ]
+}
+```
+
+---
+
+#### Toggle Source Visibility
+
+```http
+POST /api/obs/source
+```
+
+**Request Body**:
+```json
+{
+  "source_name": "Webcam",
+  "visible": true
+}
+```
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "source": "Webcam",
+  "visible": true
+}
+```
+
+---
+
+### Audio Profiles
+
+#### Get All Profiles
+
+```http
+GET /api/profiles
+```
+
+**Response**: `200 OK`
+```json
+{
+  "profiles": [
+    {
+      "name": "Default Profile",
+      "icon": "fa5s.sliders-h",
+      "created": "2025-01-01T12:00:00",
+      "updated": "2025-01-15T08:30:00",
+      "is_current": true
+    },
+    {
+      "name": "Gaming",
+      "icon": "fa5s.gamepad",
+      "created": "2025-01-10T15:20:00",
+      "updated": "2025-01-10T15:20:00",
+      "is_current": false
+    }
+  ],
+  "current": "Default Profile"
+}
+```
+
+---
+
+#### Get Current Profile
+
+```http
+GET /api/profiles/current
+```
+
+**Response**: `200 OK`
+```json
+{
+  "name": "Default Profile"
+}
+```
+
+---
+
+#### Load Profile
+
+```http
+POST /api/profiles/load
+```
+
+**Request Body**:
+```json
+{
+  "name": "Gaming"
+}
+```
+
+**Response**: `200 OK`
+```json
+{
+  "success": true,
+  "profile": "Gaming",
+  "message": "Profile load requested"
+}
+```
+
+**Error Response**: `404 Not Found`
+```json
+{
+  "error": "Profile \"Gaming\" not found"
+}
+```
+
+---
+
+## WebSocket API
+
+Real-time bidirectional communication for live updates.
+
+### Connection
+
+```javascript
+const socket = io('http://localhost:5000');
+
+// Connection established
+socket.on('connect', () => {
+  console.log('Connected to Web Controller');
+});
+
+// Connection lost
+socket.on('disconnect', () => {
+  console.log('Disconnected from Web Controller');
+});
+```
+
+### Events (Server → Client)
+
+#### initial_state
+
+Sent when client connects or requests state.
+
+```javascript
+socket.on('initial_state', (state) => {
+  console.log('Full state received:', state);
+  // state contains: sliders, macros, profiles, status, etc.
+});
+```
+
+#### slider_change
+
+Emitted when any slider value changes.
+
+```javascript
+socket.on('slider_change', (data) => {
+  console.log(`Slider ${data.index} changed to ${data.value}`);
+  // { index: 1, value: 75 }
+});
+```
+
+#### assignment_change
+
+Emitted when slider assignment changes.
+
+```javascript
+socket.on('assignment_change', (data) => {
+  console.log(`Slider ${data.index} assignment changed:`, data.assignment);
+  // {
+  //   index: 1,
+  //   assignment: { type: 'app', names: ['Spotify.exe'] },
+  //   label: 'Spotify'
+  // }
+});
+```
+
+#### mute_change
+
+Emitted when mute state changes.
+
+```javascript
+socket.on('mute_change', (data) => {
+  console.log(`Mute ${data.index}: ${data.muted}`);
+  // { index: 1, muted: true }
+});
+```
+
+#### volume_change
+
+Emitted when master volume changes.
+
+```javascript
+socket.on('volume_change', (data) => {
+  console.log(`Master volume: ${data.volume}`);
+  // { volume: 75 }
+});
+```
+
+#### profile_change
+
+Emitted when audio profile changes.
+
+```javascript
+socket.on('profile_change', (data) => {
+  console.log(`Profile changed to: ${data.profile}`);
+  // { profile: 'Gaming' }
+});
+```
+
+#### device_status
+
+Emitted when device connection status changes.
+
+```javascript
+socket.on('device_status', (data) => {
+  console.log(`Device ${data.connected ? 'connected' : 'disconnected'}`);
+  // { connected: true, port: 'COM3' }
+});
+```
+
+### Events (Client → Server)
+
+#### get_state
+
+Request full state update.
+
+```javascript
+socket.emit('get_state');
+// Server will respond with 'initial_state' event
+```
+
+---
+
+## Complete Example
+
+### React Application
+
+```jsx
+import { useEffect, useState } from 'react';
+import io from 'socket.io-client';
+
+function WebController() {
+  const [sliders, setSliders] = useState([]);
+  const [connected, setConnected] = useState(false);
+  const socket = io('http://localhost:5000');
+
+  useEffect(() => {
+    // Initial state
+    socket.on('initial_state', (state) => {
+      setSliders(state.sliders || []);
+      setConnected(state.connected);
+    });
+
+    // Real-time updates
+    socket.on('slider_change', ({ index, value }) => {
+      setSliders(prev => prev.map((s, i) =>
+        i === index - 1 ? { ...s, value } : s
+      ));
+    });
+
+    socket.on('device_status', ({ connected }) => {
+      setConnected(connected);
+    });
+
+    return () => socket.disconnect();
+  }, []);
+
+  const setSlider = async (index, value) => {
+    await fetch(`/api/sliders/${index}`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ value })
+    });
+  };
+
+  return (
+    <div>
+      <h1>Mixlar Web Controller</h1>
+      <p>Status: {connected ? 'Connected' : 'Disconnected'}</p>
+
+      {sliders.map((slider, i) => (
+        <div key={i}>
+          <label>{slider.label}</label>
+          <input
+            type="range"
+            min="0"
+            max="100"
+            value={slider.value}
+            onChange={(e) => setSlider(slider.index, e.target.value)}
+          />
+          <span>{slider.value}%</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default WebController;
+```
+
+### Vue.js Application
+
+```vue
+<template>
+  <div class="web-controller">
+    <h1>Mixlar Web Controller</h1>
+    <p>Status: {{ connected ? 'Connected' : 'Disconnected' }}</p>
+
+    <div v-for="slider in sliders" :key="slider.index" class="slider">
+      <label>{{ slider.label }}</label>
+      <input
+        type="range"
+        min="0"
+        max="100"
+        :value="slider.value"
+        @input="setSlider(slider.index, $event.target.value)"
+      />
+      <span>{{ slider.value }}%</span>
+    </div>
+  </div>
+</template>
+
+<script>
+import { io } from 'socket.io-client';
+
+export default {
+  data() {
+    return {
+      sliders: [],
+      connected: false,
+      socket: null
+    };
+  },
+  mounted() {
+    this.socket = io('http://localhost:5000');
+
+    this.socket.on('initial_state', (state) => {
+      this.sliders = state.sliders || [];
+      this.connected = state.connected;
+    });
+
+    this.socket.on('slider_change', ({ index, value }) => {
+      const slider = this.sliders.find(s => s.index === index);
+      if (slider) slider.value = value;
+    });
+
+    this.socket.on('device_status', ({ connected }) => {
+      this.connected = connected;
+    });
+  },
+  beforeUnmount() {
+    if (this.socket) {
+      this.socket.disconnect();
+    }
+  },
+  methods: {
+    async setSlider(index, value) {
+      await fetch(`/api/sliders/${index}`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ value: parseInt(value) })
+      });
+    }
+  }
+};
+</script>
+```
+
+### Mobile App (Flutter)
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+import 'dart:convert';
+
+class WebController extends StatefulWidget {
+  @override
+  _WebControllerState createState() => _WebControllerState();
+}
+
+class _WebControllerState extends State<WebController> {
+  final String baseUrl = 'http://192.168.1.100:5000';
+  late IO.Socket socket;
+  List<dynamic> sliders = [];
+  bool connected = false;
+
+  @override
+  void initState() {
+    super.initState();
+    connectSocket();
+  }
+
+  void connectSocket() {
+    socket = IO.io(baseUrl, <String, dynamic>{
+      'transports': ['websocket'],
+      'autoConnect': true,
+    });
+
+    socket.on('initial_state', (data) {
+      setState(() {
+        sliders = data['sliders'] ?? [];
+        connected = data['connected'] ?? false;
+      });
+    });
+
+    socket.on('slider_change', (data) {
+      setState(() {
+        final index = data['index'] - 1;
+        if (index < sliders.length) {
+          sliders[index]['value'] = data['value'];
+        }
+      });
+    });
+
+    socket.connect();
+  }
+
+  Future<void> setSlider(int index, double value) async {
+    final response = await http.post(
+      Uri.parse('$baseUrl/api/sliders/$index'),
+      headers: {'Content-Type': 'application/json'},
+      body: json.encode({'value': value.toInt()}),
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Mixlar Web Controller'),
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: EdgeInsets.all(16),
+            child: Text(
+              'Status: ${connected ? "Connected" : "Disconnected"}',
+              style: TextStyle(fontSize: 18),
+            ),
+          ),
+          Expanded(
+            child: ListView.builder(
+              itemCount: sliders.length,
+              itemBuilder: (context, i) {
+                final slider = sliders[i];
+                return ListTile(
+                  title: Text(slider['label'] ?? 'Slider ${i + 1}'),
+                  subtitle: Slider(
+                    value: (slider['value'] ?? 0).toDouble(),
+                    min: 0,
+                    max: 100,
+                    onChanged: (value) {
+                      setSlider(slider['index'], value);
+                    },
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  @override
+  void dispose() {
+    socket.disconnect();
+    super.dispose();
+  }
+}
+```
+
+---
+
+## Security
+
+### HTTPS Setup
+
+For secure remote access, enable HTTPS with Tailscale certificates:
+
+1. **Install Tailscale**
+2. **Get certificates**: `tailscale cert yourhostname.tailnet.ts.net`
+3. **Place in**: `main/certs/` folder
+4. **Restart plugin**
+
+Access via: `https://yourhostname.tailnet.ts.net:5000`
+
+### Authentication
+
+Enable password protection in Web Controller settings:
+
+```json
+{
+  "auth_enabled": true,
+  "auth_username": "admin",
+  "auth_password_hash": "hashed-password",
+  "session_timeout": 86400
+}
+```
+
+### CORS
+
+CORS is enabled by default for all origins (`*`). To restrict:
+
+Edit `web_server.py`:
+```python
+CORS(app, resources={r"/*": {"origins": "https://your-domain.com"}})
+```
+
+---
+
+**Documentation Version**: 1.0
+**Last Updated**: 2025-12-10
+**Default Port**: 5000
