@@ -1,0 +1,85 @@
+{
+  "name": "Mixlar Control",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "favicon": "/favicon.png",
+  "colors": {
+    "primary": "#007ACC",
+    "light": "#0098FF",
+    "dark": "#005A9E",
+    "background": {
+      "dark": "#121317"
+    }
+  },
+  "topbarCtaButton": {
+    "name": "Download",
+    "url": "https://mixlar.com/download"
+  },
+  "topbarLinks": [
+    {
+      "name": "App Store",
+      "url": "https://apps.apple.com/app/mixlar-control"
+    }
+  ],
+  "anchors": [
+    {
+      "name": "Community",
+      "icon": "discord",
+      "url": "https://discord.gg/mixlar"
+    },
+    {
+      "name": "GitHub",
+      "icon": "github",
+      "url": "https://github.com/mixlar/mixlar-control"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Getting Started",
+      "pages": [
+        "quickstart",
+        "web-controller-setup",
+        "remote-access-tailscale",
+        "ios-app"
+      ]
+    },
+    {
+      "group": "Guides",
+      "pages": [
+        "guides/security",
+        "guides/troubleshooting",
+        "guides/faq"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": [
+        "api-reference/overview",
+        "api-reference/toast-notifications",
+        "api-reference/rest-endpoints",
+        "api-reference/websocket-events"
+      ]
+    },
+    {
+      "group": "Advanced",
+      "pages": [
+        "advanced/plugin-development",
+        "advanced/custom-integrations",
+        "advanced/https-certificates"
+      ]
+    }
+  ],
+  "footerSocials": {
+    "twitter": "https://twitter.com/mixlarapp",
+    "discord": "https://discord.gg/mixlar",
+    "github": "https://github.com/mixlar/mixlar-control"
+  },
+  "backgroundImage": "/background.png",
+  "analytics": {
+    "ga4": {
+      "measurementId": "G-XXXXXXXXXX"
+    }
+  }
+}

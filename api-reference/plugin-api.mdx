@@ -1,0 +1,878 @@
+---
+title: Plugin API Reference
+description: Complete API reference for developing Mixlar plugins
+version: 1.0
+api_version: "1.0"
+---
+
+# Plugin API Reference
+
+The Mixlar Plugin API allows developers to extend functionality through custom Python plugins with access to device events, serial communication, macros, and more.
+
+## Plugin Structure
+
+```
+plugins/executable/my_plugin/
+├── manifest.json          # Plugin metadata and configuration
+├── plugin.py             # Main plugin class
+├── requirements.txt      # Python dependencies (optional)
+└── README.md            # Documentation (optional)
+```
+
+## Manifest Format
+
+`manifest.json` defines plugin metadata, dependencies, and settings schema.
+
+```json
+{
+  "id": "com.author.plugin_name",
+  "name": "Plugin Display Name",
+  "description": "Brief description of plugin functionality",
+  "version": "1.0.0",
+  "api_version": "1.0",
+  "author": "Your Name",
+  "author_email": "your@email.com",
+  "type": "executable",
+  "entry_point": "plugin.py",
+  "main_class": "MyPluginClass",
+  "dependencies": {
+    "packages": [
+      "requests>=2.25.0",
+      "websockets>=10.0"
+    ]
+  },
+  "permissions": [
+    "serial.send",
+    "macros.register",
+    "notifications.show"
+  ],
+  "settings_schema": {
+    "api_key": {
+      "type": "string",
+      "default": "",
+      "description": "Your API key",
+      "required": true
+    },
+    "enabled": {
+      "type": "boolean",
+      "default": true,
+      "description": "Enable notifications"
+    },
+    "refresh_interval": {
+      "type": "integer",
+      "default": 60,
+      "description": "Update interval in seconds",
+      "min": 10,
+      "max": 300
+    }
+  }
+}
+```
+
+### Manifest Fields
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `id` | string | Yes | Unique identifier (reverse domain notation) |
+| `name` | string | Yes | Display name shown in UI |
+| `description` | string | No | Brief description |
+| `version` | string | Yes | Plugin version (semver) |
+| `api_version` | string | Yes | Required API version (currently "1.0") |
+| `author` | string | No | Plugin author name |
+| `author_email` | string | No | Contact email |
+| `type` | string | Yes | Must be "executable" |
+| `entry_point` | string | Yes | Python file name (e.g., "plugin.py") |
+| `main_class` | string | Yes | Main class name |
+| `dependencies` | object | No | Python package dependencies |
+| `permissions` | array | No | Required permissions |
+| `settings_schema` | object | No | Plugin settings definition |
+
+## Base Plugin Class
+
+All plugins must inherit from `BasePlugin`:
+
+```python
+import sys
+sys.path.append('../api')
+from base_plugin import BasePlugin
+
+class MyPlugin(BasePlugin):
+    def on_load(self):
+        """Called when plugin loads."""
+        self.log("Plugin loaded!")
+
+    def on_unload(self):
+        """Called when plugin unloads."""
+        self.log("Plugin unloading...")
+```
+
+## Lifecycle Hooks
+
+### on_load()
+
+Called when plugin is loaded at startup.
+
+```python
+def on_load(self):
+    """Initialize plugin resources."""
+    api_key = self.get_setting('api_key', '')
+    if not api_key:
+        self.log("Warning: API key not configured", level="warning")
+        return
+
+    # Initialize connections, start threads, etc.
+    self.start_monitoring()
+```
+
+### on_unload()
+
+Called when plugin is unloaded (app shutdown or plugin disabled).
+
+```python
+def on_unload(self):
+    """Clean up plugin resources."""
+    # Stop threads
+    if hasattr(self, 'monitor_thread'):
+        self.monitor_thread.stop()
+
+    # Close connections
+    if hasattr(self, 'websocket'):
+        self.websocket.close()
+
+    self.log("Cleanup complete")
+```
+
+### on_enable()
+
+Called when plugin is re-enabled after being disabled.
+
+```python
+def on_enable(self):
+    """Resume plugin operations."""
+    self.log("Plugin enabled")
+    self.start_monitoring()
+```
+
+### on_disable()
+
+Called when plugin is disabled via settings.
+
+```python
+def on_disable(self):
+    """Pause plugin operations."""
+    self.log("Plugin disabled")
+    self.stop_monitoring()
+```
+
+## Device Event Hooks
+
+### on_device_connect(port: str)
+
+Called when hardware device connects.
+
+```python
+def on_device_connect(self, port: str):
+    """Device connected on serial port."""
+    self.log(f"Device connected on {port}")
+
+    # Send custom serial command
+    self.send_serial("Theme#FF5733")  # Set theme color
+
+    # Show notification
+    self.show_notification("Device Connected", f"Port: {port}")
+```
+
+**Parameters**:
+- `port` (str): Serial port name (e.g., "COM3" on Windows)
+
+### on_device_disconnect()
+
+Called when hardware device disconnects.
+
+```python
+def on_device_disconnect(self):
+    """Device disconnected."""
+    self.log("Device disconnected")
+    self.show_notification("Device Disconnected", "Waiting for reconnection...")
+```
+
+## Input Event Hooks
+
+### on_slider_change(index: int, value: int)
+
+Called when slider value changes (hardware or software).
+
+```python
+def on_slider_change(self, index: int, value: int):
+    """
+    Slider value changed.
+
+    Args:
+        index: Slider index (0-3)
+        value: New value (0-100)
+    """
+    self.log(f"Slider {index+1} changed to {value}")
+
+    # Example: Send to external API
+    if value > 80:
+        self.send_high_volume_alert(index, value)
+```
+
+### on_macro_button(index: int, page: int)
+
+Called when macro button is pressed.
+
+```python
+def on_macro_button(self, index: int, page: int):
+    """
+    Macro button pressed.
+
+    Args:
+        index: Button index (0-8)
+        page: Page index (0-3)
+    """
+    self.log(f"Macro button {index+1} pressed on page {page+1}")
+
+    # Example: Log to external service
+    self.log_button_press(index, page)
+```
+
+### on_mute_button(index: int, state: bool)
+
+Called when mute button is toggled.
+
+```python
+def on_mute_button(self, index: int, state: bool):
+    """
+    Mute button toggled.
+
+    Args:
+        index: Mute button index (0-3)
+        state: New mute state (True = muted)
+    """
+    status = "muted" if state else "unmuted"
+    self.log(f"Channel {index+1} {status}")
+```
+
+### on_encoder_turn(direction: int)
+
+Called when rotary encoder is turned.
+
+```python
+def on_encoder_turn(self, direction: int):
+    """
+    Rotary encoder turned.
+
+    Args:
+        direction: Turn direction (positive = clockwise, negative = counter-clockwise)
+    """
+    if direction > 0:
+        self.log(f"Encoder turned clockwise by {direction}")
+    else:
+        self.log(f"Encoder turned counter-clockwise by {abs(direction)}")
+```
+
+### on_encoder_press(press_type: str)
+
+Called when encoder button is pressed.
+
+```python
+def on_encoder_press(self, press_type: str):
+    """
+    Encoder button pressed.
+
+    Args:
+        press_type: "short" or "long"
+    """
+    if press_type == "short":
+        self.log("Encoder short press")
+    elif press_type == "long":
+        self.log("Encoder long press")
+```
+
+## Serial & Display Hooks
+
+### on_serial_receive(data: str)
+
+Called when raw serial data is received from device.
+
+```python
+def on_serial_receive(self, data: str):
+    """
+    Raw serial data received.
+
+    Args:
+        data: Raw serial message (line, without newline)
+    """
+    self.log(f"Serial RX: {data}")
+
+    # Example: Parse custom messages
+    if data.startswith("CUSTOM,"):
+        parts = data.split(',')
+        self.handle_custom_message(parts[1:])
+```
+
+### on_page_change(page_name: str)
+
+Called when display page changes.
+
+```python
+def on_page_change(self, page_name: str):
+    """
+    Display page changed.
+
+    Args:
+        page_name: New page name ("MAIN", "SPOTIFY", "STATS", "SCREENSAVER")
+    """
+    self.log(f"Page changed to: {page_name}")
+
+    # Example: Update theme based on page
+    if page_name == "SPOTIFY":
+        self.send_serial("Theme#1DB954")  # Spotify green
+    elif page_name == "MAIN":
+        self.send_serial("Theme#FF5733")  # Default orange
+```
+
+### on_macro_page_change(page_index: int)
+
+Called when macro page changes.
+
+```python
+def on_macro_page_change(self, page_index: int):
+    """
+    Macro page changed.
+
+    Args:
+        page_index: New page index (0-3)
+    """
+    self.log(f"Macro page changed to: {page_index + 1}")
+```
+
+## Application Hooks
+
+### on_spotify_track_change(track_info: Dict)
+
+Called when Spotify track changes.
+
+```python
+def on_spotify_track_change(self, track_info: dict):
+    """
+    Spotify track changed.
+
+    Args:
+        track_info: Dictionary with track metadata
+    """
+    title = track_info.get('title', 'Unknown')
+    artist = track_info.get('artist', 'Unknown')
+
+    self.log(f"Now playing: {title} by {artist}")
+
+    # Example: Post to Discord webhook
+    self.send_discord_webhook(
+        title=f"🎵 Now Playing",
+        message=f"{title}\n{artist}",
+        color="1DB954"
+    )
+```
+
+**Track Info Fields**:
+- `title` (str): Song title
+- `artist` (str): Artist name
+- `album` (str): Album name
+- `duration_ms` (int): Track duration
+- `progress_ms` (int): Current progress
+- `is_playing` (bool): Playback state
+- `is_liked` (bool): Saved/liked state
+
+### on_macro_execute(macro: Dict) → bool
+
+Called before macro execution. Return `False` to block execution.
+
+```python
+def on_macro_execute(self, macro: dict) -> bool:
+    """
+    Before macro execution.
+
+    Args:
+        macro: Macro definition dictionary
+
+    Returns:
+        True to allow execution, False to block
+    """
+    macro_type = macro.get('type', '')
+    macro_name = macro.get('name', 'Unnamed')
+
+    self.log(f"Executing macro: {macro_name} (type: {macro_type})")
+
+    # Example: Block certain macros during streaming
+    if self.is_streaming and macro.get('block_during_stream', False):
+        self.log(f"Blocking macro {macro_name} - streaming active")
+        return False
+
+    return True
+```
+
+## API Methods
+
+### Serial Communication
+
+#### send_serial(command: str) → bool
+
+Send command to device via serial.
+
+```python
+# Set theme color
+self.send_serial("Theme#FF5733")
+
+# Update slider position
+self.send_serial("SET_SLIDER,1,75")
+
+# Update Spotify display
+self.send_serial("SPOTIFYTITLE=Never Gonna Give You Up")
+self.send_serial("SPOTIFYARTIST=Rick Astley")
+
+# Control screensaver
+self.send_serial("SAVERSTART")
+self.send_serial("SAVERSTOP")
+```
+
+**Returns**: `True` if sent successfully, `False` if device disconnected
+
+**Available Commands**: See [Serial Communication Protocol](#serial-communication-protocol)
+
+### Macro Control
+
+#### trigger_macro(index: int, page: Optional[int] = None) → bool
+
+Programmatically execute a macro.
+
+```python
+# Trigger macro 0 on current page
+self.trigger_macro(0)
+
+# Trigger macro 5 on page 2
+self.trigger_macro(5, page=2)
+```
+
+**Parameters**:
+- `index` (int): Macro index (0-8)
+- `page` (int, optional): Page index (0-3), defaults to current page
+
+**Returns**: `True` if triggered successfully
+
+#### register_macro_type(type_name: str, handler: Callable) → bool
+
+Register custom macro type.
+
+```python
+def on_load(self):
+    # Register custom macro type
+    self.register_macro_type('discord_webhook', self.handle_discord_webhook)
+
+def handle_discord_webhook(self, macro: dict):
+    """
+    Execute discord_webhook macro.
+
+    Args:
+        macro: Macro definition with custom fields
+    """
+    webhook_url = self.get_setting('webhook_url', '')
+    title = macro.get('title', 'Notification')
+    message = macro.get('message', '')
+    color = macro.get('color', 'FF5733')
+
+    # Send webhook request
+    import requests
+    requests.post(webhook_url, json={
+        'embeds': [{
+            'title': title,
+            'description': message,
+            'color': int(color, 16)
+        }]
+    })
+```
+
+**Macro Usage**:
+```json
+{
+  "type": "discord_webhook",
+  "name": "Send Alert",
+  "title": "Button Pressed",
+  "message": "Macro button was pressed!",
+  "color": "FF6B6B"
+}
+```
+
+### State Queries
+
+#### get_slider_value(index: int) → Optional[int]
+
+Get current slider value.
+
+```python
+value = self.get_slider_value(0)  # Get slider 1 value (0-100)
+if value is not None:
+    self.log(f"Slider 1 is at {value}%")
+```
+
+**Returns**: Value (0-100) or `None` if invalid index
+
+#### get_device_state() → Dict
+
+Get device connection state.
+
+```python
+state = self.get_device_state()
+# {
+#   'connected': True,
+#   'port': 'COM3',
+#   'page': 'MAIN',
+#   'firmware_version': '1.2.0'
+# }
+
+if state['connected']:
+    self.log(f"Device connected on {state['port']}")
+```
+
+#### get_spotify_state() → Optional[Dict]
+
+Get current Spotify playback state.
+
+```python
+spotify = self.get_spotify_state()
+if spotify:
+    self.log(f"Playing: {spotify['title']} by {spotify['artist']}")
+    self.log(f"Progress: {spotify['progress_ms']} / {spotify['duration_ms']} ms")
+```
+
+**Returns**: Dictionary with track info or `None` if Spotify not active
+
+#### get_all_macros() → Dict[int, List[Dict]]
+
+Get all configured macros.
+
+```python
+macros = self.get_all_macros()
+# {
+#   0: [...],  # Page 0 macros
+#   1: [...],  # Page 1 macros
+#   2: [...],  # Page 2 macros
+#   3: [...]   # Page 3 macros
+# }
+
+for page, macro_list in macros.items():
+    self.log(f"Page {page} has {len(macro_list)} macros")
+```
+
+### Settings Management
+
+#### get_setting(key: str, default: Any = None) → Any
+
+Get plugin setting value.
+
+```python
+# Get with default
+api_key = self.get_setting('api_key', 'default-key')
+
+# Check boolean
+enabled = self.get_setting('enabled', True)
+
+# Get integer
+interval = self.get_setting('refresh_interval', 60)
+```
+
+#### set_setting(key: str, value: Any)
+
+Save plugin setting (persists to config).
+
+```python
+# Save string
+self.set_setting('api_key', 'new-api-key-123')
+
+# Save boolean
+self.set_setting('enabled', False)
+
+# Save integer
+self.set_setting('refresh_interval', 120)
+```
+
+**Note**: Settings are automatically saved to `mixer_config.json` under plugin ID
+
+#### get_all_settings() → Dict
+
+Get all plugin settings.
+
+```python
+settings = self.get_all_settings()
+# {
+#   'api_key': 'abc123',
+#   'enabled': True,
+#   'refresh_interval': 60
+# }
+```
+
+### UI & Notifications
+
+#### show_notification(title: str, message: str)
+
+Show system tray notification.
+
+```python
+self.show_notification("Alert", "Something happened!")
+```
+
+**Parameters**:
+- `title` (str): Notification title
+- `message` (str): Notification message
+
+#### log(message: str, level: str = 'info')
+
+Log message to console with plugin prefix.
+
+```python
+self.log("Normal message")
+self.log("Warning message", level="warning")
+self.log("Error occurred", level="error")
+```
+
+**Levels**: `info`, `warning`, `error`
+
+**Output**: `[PluginName] Message`
+
+## Serial Communication Protocol
+
+### Commands (PC → Device)
+
+| Command | Format | Description |
+|---------|--------|-------------|
+| PING | `PING` | Heartbeat keepalive |
+| SET_SLIDER | `SET_SLIDER,<1-4>,<0-100>` | Update hardware slider position |
+| Theme | `Theme#<HEX>` | Set accent color (e.g., `Theme#FF5733`) |
+| SPOTIFYTITLE | `SPOTIFYTITLE=<text>` | Set Spotify song title |
+| SPOTIFYARTIST | `SPOTIFYARTIST=<text>` | Set Spotify artist name |
+| SPOTIFYnextsong | `SPOTIFYnextsong=<text>` | Set next song in queue |
+| SPOTIFYPLAYING | `SPOTIFYPLAYING=<0\|1>` | Set playback state |
+| SPOTIFYLIKED | `SPOTIFYLIKED=<0\|1>` | Set liked/saved state |
+| SPOTIFYPROGRESS | `SPOTIFYPROGRESS=<0-100>` | Set song progress (%) |
+| SPOTIFYCLEAR | `SPOTIFYCLEAR` | Clear Spotify display |
+| SAVERSTART | `SAVERSTART` | Start screensaver |
+| SAVERSTOP | `SAVERSTOP` | Stop screensaver |
+| SAVERBG | `SAVERBG#<HEX>` | Set screensaver background color |
+| ICON | `ICON,<idx>,<name>` | Update slider icon |
+| LABEL | `LABEL,<idx>,<text>` | Update slider label |
+| MACRO | `MACRO,<page>,<slot>,<name>,<icon>` | Configure macro button |
+
+### Messages (Device → PC)
+
+| Message | Format | Description |
+|---------|--------|-------------|
+| PONG | `PONG` | Heartbeat response |
+| STATE,PAGE | `STATE,PAGE,<name>` | Page changed (MAIN/SPOTIFY/STATS/SCREENSAVER) |
+| STATE,MASTER_MUTE | `STATE,MASTER_MUTE,<0\|1>` | Master mute toggled |
+| SLIDER | `SLIDER,<1-4>,<0-100>` | Slider value changed |
+| MUTE | `MUTE,<1-4>,<0\|1>` | Mute button pressed |
+| ENCODER | `ENCODER,<+N\|-N>` | Rotary encoder turned |
+| ENCODER_SHORT | `ENCODER_SHORT` | Encoder button short press |
+| ENCODER_LONG | `ENCODER_LONG` | Encoder button long press |
+| MACRO | `MACRO,<1-9>` | Macro button pressed |
+
+## Complete Plugin Example
+
+```python
+"""
+Example Plugin: Discord Webhook Integration
+Sends notifications to Discord when events occur.
+"""
+
+import sys
+sys.path.append('../api')
+from base_plugin import BasePlugin
+import requests
+import threading
+import time
+
+class DiscordWebhookPlugin(BasePlugin):
+    def on_load(self):
+        """Initialize plugin."""
+        self.log("Discord Webhook Plugin loaded")
+
+        # Register custom macro type
+        self.register_macro_type('discord_webhook', self.handle_discord_webhook)
+
+        # Get settings
+        self.webhook_url = self.get_setting('webhook_url', '')
+        if not self.webhook_url:
+            self.log("Warning: Webhook URL not configured", level="warning")
+
+        # Notification settings
+        self.notify_on_connect = self.get_setting('notify_on_connect', True)
+        self.notify_on_button = self.get_setting('notify_on_button', False)
+
+    def on_unload(self):
+        """Cleanup."""
+        self.log("Discord Webhook Plugin unloading")
+
+    def on_device_connect(self, port: str):
+        """Device connected."""
+        if self.notify_on_connect and self.webhook_url:
+            self.send_webhook(
+                title="Device Connected",
+                message=f"Connected on port {port}",
+                color="00FF00"
+            )
+
+    def on_device_disconnect(self):
+        """Device disconnected."""
+        if self.notify_on_connect and self.webhook_url:
+            self.send_webhook(
+                title="Device Disconnected",
+                message="Waiting for reconnection...",
+                color="FF0000"
+            )
+
+    def on_macro_button(self, index: int, page: int):
+        """Macro button pressed."""
+        if self.notify_on_button and self.webhook_url:
+            self.log(f"Macro button {index+1} pressed on page {page+1}")
+
+    def on_spotify_track_change(self, track_info: dict):
+        """Spotify track changed."""
+        if self.get_setting('notify_on_track_change', False) and self.webhook_url:
+            title = track_info.get('title', 'Unknown')
+            artist = track_info.get('artist', 'Unknown')
+
+            self.send_webhook(
+                title="🎵 Now Playing",
+                message=f"{title}\n{artist}",
+                color="1DB954"
+            )
+
+    def handle_discord_webhook(self, macro: dict):
+        """Execute discord_webhook macro."""
+        if not self.webhook_url:
+            self.log("Cannot send webhook - URL not configured", level="error")
+            return
+
+        title = macro.get('title', 'Notification')
+        message = macro.get('message', '')
+        color = macro.get('color', 'FF5733')
+
+        self.send_webhook(title, message, color)
+
+    def send_webhook(self, title: str, message: str, color: str):
+        """
+        Send Discord webhook message.
+
+        Args:
+            title: Embed title
+            message: Embed description
+            color: Hex color (without #)
+        """
+        if not self.webhook_url:
+            return
+
+        # Convert hex to decimal
+        try:
+            color_int = int(color.lstrip('#'), 16)
+        except ValueError:
+            color_int = 0xFF5733  # Default orange
+
+        payload = {
+            'embeds': [{
+                'title': title,
+                'description': message,
+                'color': color_int,
+                'timestamp': time.strftime('%Y-%m-%dT%H:%M:%S')
+            }]
+        }
+
+        try:
+            response = requests.post(
+                self.webhook_url,
+                json=payload,
+                timeout=5
+            )
+
+            if response.status_code == 204:
+                self.log(f"Webhook sent: {title}")
+            else:
+                self.log(f"Webhook failed: {response.status_code}", level="error")
+
+        except Exception as e:
+            self.log(f"Webhook error: {e}", level="error")
+```
+
+## Best Practices
+
+### Thread Safety
+
+Always use daemon threads for background tasks:
+
+```python
+def on_load(self):
+    self.running = True
+    self.monitor_thread = threading.Thread(
+        target=self.monitor_loop,
+        daemon=True
+    )
+    self.monitor_thread.start()
+
+def monitor_loop(self):
+    while self.running:
+        # Do work
+        time.sleep(1)
+
+def on_unload(self):
+    self.running = False
+```
+
+### Error Handling
+
+Always catch exceptions in hooks:
+
+```python
+def on_slider_change(self, index: int, value: int):
+    try:
+        # Your code here
+        self.process_slider_change(index, value)
+    except Exception as e:
+        self.log(f"Error processing slider change: {e}", level="error")
+```
+
+### Resource Cleanup
+
+Clean up resources in `on_unload()`:
+
+```python
+def on_load(self):
+    self.connection = MyConnection()
+
+def on_unload(self):
+    if hasattr(self, 'connection'):
+        self.connection.close()
+        delattr(self, 'connection')
+```
+
+### Settings Validation
+
+Validate settings before use:
+
+```python
+def on_load(self):
+    api_key = self.get_setting('api_key', '')
+    if not api_key:
+        self.log("API key not configured", level="warning")
+        return
+
+    if len(api_key) < 10:
+        self.log("API key too short", level="error")
+        return
+
+    self.initialize_api(api_key)
+```
+
+---
+
+**Documentation Version**: 1.0
+**Last Updated**: 2025-12-10
+**API Version**: 1.0

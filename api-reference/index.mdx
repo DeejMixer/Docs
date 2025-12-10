@@ -1,0 +1,411 @@
+---
+title: Mixlar API Documentation
+description: Complete API documentation for Mixlar Mix Control
+version: 1.5
+---
+
+# Mixlar API Documentation
+
+Complete API reference for integrating with and extending Mixlar Mix Control.
+
+## Overview
+
+Mixlar Mix Control provides three powerful APIs for integration and extension:
+
+1. **[Toast Notification API](#toast-notification-api)** - HTTP REST API for sending notifications
+2. **[Web Controller API](#web-controller-api)** - Complete remote control via REST and WebSocket
+3. **[Plugin API](#plugin-api)** - Extend functionality with custom Python plugins
+
+---
+
+## Toast Notification API
+
+> **[📖 Full Documentation](./toast-api.mdx)**
+
+Lightweight HTTP REST API for sending toast notifications to your Mixlar device from any application.
+
+### Quick Start
+
+```bash
+curl -X POST http://localhost:8889/api/toast/send \
+  -H "X-API-Key: YOUR_API_KEY_HERE" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "message": "Build Complete!",
+    "icon": "checkmark",
+    "color": "00FF00"
+  }'
+```
+
+### Features
+
+- ✅ Simple REST API (POST requests)
+- ✅ API key authentication
+- ✅ Rate limiting (30 req/min)
+- ✅ Tailscale HTTPS support
+- ✅ Multi-language examples (Python, JS, Bash, PowerShell)
+
+### Use Cases
+
+- CI/CD build notifications
+- Server monitoring alerts
+- Task automation completion
+- Custom application integrations
+- Smart home events
+
+### Key Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/toast/health` | GET | Health check (no auth) |
+| `/api/toast/send` | POST | Send notification |
+| `/api/toast/status` | GET | Server status |
+| `/api/toast/network` | GET | Network addresses |
+
+**Port**: 8889 (default)
+
+---
+
+## Web Controller API
+
+> **[📖 Full Documentation](./web-controller-api.mdx)**
+
+Complete REST API and WebSocket interface for remote control of your Mixlar device.
+
+### Quick Start
+
+**REST API**:
+```javascript
+// Set slider value
+await fetch('http://localhost:5000/api/sliders/1', {
+  method: 'POST',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ value: 75 })
+});
+```
+
+**WebSocket**:
+```javascript
+import io from 'socket.io-client';
+
+const socket = io('http://localhost:5000');
+
+socket.on('slider_change', ({ index, value }) => {
+  console.log(`Slider ${index}: ${value}%`);
+});
+```
+
+### Features
+
+- ✅ Complete device control (sliders, mutes, macros)
+- ✅ Real-time WebSocket updates
+- ✅ Optional password authentication
+- ✅ Session management
+- ✅ CORS enabled
+- ✅ HTTPS with Tailscale
+
+### Control Categories
+
+- **Audio**: Sliders, mutes, master volume, assignments
+- **Macros**: Trigger macros, view pages
+- **Smart Home**: Control lights, switches, brightness
+- **OBS Studio**: Switch scenes, toggle sources
+- **Profiles**: Load audio profiles
+
+### Key Endpoints
+
+| Endpoint | Method | Description |
+|----------|--------|-------------|
+| `/api/status` | GET | System status |
+| `/api/sliders` | GET | Get all sliders |
+| `/api/sliders/{index}` | POST | Set slider value |
+| `/api/mutes/{index}` | POST | Toggle mute |
+| `/api/macros/trigger` | POST | Execute macro |
+| `/api/smarthome/toggle` | POST | Toggle device |
+| `/api/obs/scene` | POST | Switch OBS scene |
+
+### WebSocket Events
+
+| Event | Direction | Description |
+|-------|-----------|-------------|
+| `initial_state` | Server → Client | Full state on connect |
+| `slider_change` | Server → Client | Slider value changed |
+| `mute_change` | Server → Client | Mute state changed |
+| `volume_change` | Server → Client | Master volume changed |
+| `get_state` | Client → Server | Request state update |
+
+**Port**: 5000 (default, configurable)
+
+---
+
+## Plugin API
+
+> **[📖 Full Documentation](./plugin-api.mdx)**
+
+Extend Mixlar functionality with custom Python plugins.
+
+### Quick Start
+
+**1. Create Plugin Structure**:
+```
+plugins/executable/my_plugin/
+├── manifest.json
+└── plugin.py
+```
+
+**2. Define Manifest** (`manifest.json`):
+```json
+{
+  "id": "com.author.my_plugin",
+  "name": "My Plugin",
+  "version": "1.0.0",
+  "api_version": "1.0",
+  "type": "executable",
+  "entry_point": "plugin.py",
+  "main_class": "MyPlugin"
+}
+```
+
+**3. Create Plugin** (`plugin.py`):
+```python
+import sys
+sys.path.append('../api')
+from base_plugin import BasePlugin
+
+class MyPlugin(BasePlugin):
+    def on_load(self):
+        self.log("Plugin loaded!")
+
+    def on_device_connect(self, port):
+        self.send_serial("Theme#FF5733")
+        self.show_notification("Device Connected", f"Port: {port}")
+
+    def on_macro_button(self, index, page):
+        self.log(f"Button {index+1} pressed on page {page+1}")
+```
+
+### Features
+
+- ✅ Event-driven architecture (17+ hooks)
+- ✅ Serial communication access
+- ✅ Custom macro types
+- ✅ Settings persistence
+- ✅ State queries (sliders, device, Spotify)
+- ✅ Thread-safe APIs
+
+### Available Hooks
+
+**Lifecycle**:
+- `on_load()`, `on_unload()`, `on_enable()`, `on_disable()`
+
+**Device Events**:
+- `on_device_connect(port)`, `on_device_disconnect()`
+
+**Input Events**:
+- `on_slider_change(index, value)`
+- `on_macro_button(index, page)`
+- `on_mute_button(index, state)`
+- `on_encoder_turn(direction)`
+- `on_encoder_press(press_type)`
+
+**Serial & Display**:
+- `on_serial_receive(data)`
+- `on_page_change(page_name)`
+- `on_macro_page_change(page_index)`
+
+**Application**:
+- `on_spotify_track_change(track_info)`
+- `on_macro_execute(macro)` → bool
+
+### API Methods
+
+**Serial**: `send_serial(command)`
+
+**Macros**: `trigger_macro(index, page)`, `register_macro_type(type_name, handler)`
+
+**State**: `get_slider_value(index)`, `get_device_state()`, `get_spotify_state()`, `get_all_macros()`
+
+**Settings**: `get_setting(key, default)`, `set_setting(key, value)`, `get_all_settings()`
+
+**UI**: `show_notification(title, message)`, `log(message, level)`
+
+---
+
+## Integration Examples
+
+### CI/CD Pipeline Notifications
+
+**GitHub Actions**:
+```yaml
+- name: Notify on Success
+  if: success()
+  run: |
+    curl -X POST http://localhost:8889/api/toast/send \
+      -H "X-API-Key: ${{ secrets.TOAST_API_KEY }}" \
+      -H "Content-Type: application/json" \
+      -d '{"message": "Build Success", "icon": "checkmark", "color": "00FF00"}'
+```
+
+### Mobile App Control
+
+**Flutter**:
+```dart
+import 'package:socket_io_client/socket_io_client.dart' as IO;
+
+final socket = IO.io('http://192.168.1.100:5000');
+
+socket.on('slider_change', (data) {
+  print('Slider ${data['index']}: ${data['value']}%');
+});
+
+// Set slider
+await http.post(
+  Uri.parse('http://192.168.1.100:5000/api/sliders/1'),
+  body: json.encode({'value': 75}),
+);
+```
+
+### Custom Plugin Integration
+
+**Discord Webhook Plugin**:
+```python
+class DiscordPlugin(BasePlugin):
+    def on_load(self):
+        self.register_macro_type('discord_webhook', self.send_webhook)
+
+    def on_spotify_track_change(self, track_info):
+        self.send_webhook({
+            'title': '🎵 Now Playing',
+            'message': f"{track_info['title']}\n{track_info['artist']}",
+            'color': '1DB954'
+        })
+```
+
+---
+
+## Network Access
+
+### Local Access
+
+- **Localhost**: `http://localhost:{PORT}`
+- **Local Network**: `http://192.168.x.x:{PORT}`
+
+### Remote Access (Tailscale)
+
+1. **Install Tailscale**: https://tailscale.com/download
+2. **Generate Certificates**:
+   ```bash
+   tailscale cert yourhostname.tailnet.ts.net
+   ```
+3. **Place Certificates**: `main/certs/`
+4. **Access**:
+   - Toast API: `https://yourhostname.tailnet.ts.net:8889`
+   - Web Controller: `https://yourhostname.tailnet.ts.net:5000`
+
+### Security
+
+- **API Keys**: Store securely (environment variables, secrets manager)
+- **HTTPS**: Use Tailscale certificates for encryption
+- **Authentication**: Enable password protection for Web Controller
+- **Firewall**: Block ports from internet if not using Tailscale
+
+---
+
+## Default Ports
+
+| API | Default Port | Configurable |
+|-----|--------------|--------------|
+| Toast Notification API | 8889 | Yes (plugin settings) |
+| Web Controller API | 5000 | Yes (plugin settings) |
+
+---
+
+## API Comparison
+
+| Feature | Toast API | Web Controller | Plugin API |
+|---------|-----------|----------------|------------|
+| **Purpose** | Send notifications | Full device control | Extend functionality |
+| **Protocol** | HTTP REST | REST + WebSocket | Python hooks |
+| **Auth** | API Key | Session (optional) | N/A (internal) |
+| **Use Case** | External apps | Remote control | Custom features |
+| **Complexity** | Simple | Moderate | Advanced |
+| **Examples** | CI/CD, monitoring | Mobile apps, web UI | Custom macros, integrations |
+
+---
+
+## Quick Reference
+
+### Toast API - Send Notification
+
+```bash
+curl -X POST http://localhost:8889/api/toast/send \
+  -H "X-API-Key: YOUR_KEY" \
+  -H "Content-Type: application/json" \
+  -d '{"message": "Hello", "icon": "bell"}'
+```
+
+### Web Controller - Set Slider
+
+```bash
+curl -X POST http://localhost:5000/api/sliders/1 \
+  -H "Content-Type: application/json" \
+  -d '{"value": 75}'
+```
+
+### Plugin - Custom Macro
+
+```python
+def on_load(self):
+    self.register_macro_type('custom_type', self.handle_custom)
+
+def handle_custom(self, macro):
+    self.log(f"Custom macro: {macro['name']}")
+```
+
+---
+
+## Getting Help
+
+### Documentation Files
+
+- `toast-api.mdx` - Complete Toast API reference
+- `web-controller-api.mdx` - Complete Web Controller reference
+- `plugin-api.mdx` - Complete Plugin API reference
+- `index.mdx` - This overview document
+
+### Additional Resources
+
+- `CLAUDE.md` - Project architecture and development guide
+- `toast/API_DOCUMENTATION.md` - Toast system architecture
+- `toast/PLUGIN_DEVELOPMENT.md` - Plugin development guide
+- `plugins/README.txt` - Plugin system documentation
+
+### Support
+
+- **Issues**: Report bugs and request features
+- **Examples**: See `plugins/executable/` for working plugin examples
+- **Testing**: Use `toast/api/test_api.py` for API testing
+
+---
+
+## Version History
+
+### v1.5 (Current)
+
+- ✅ Toast Notification API with Tailscale HTTPS
+- ✅ Web Controller API with WebSocket support
+- ✅ Plugin API with 17+ event hooks
+- ✅ Custom macro type registration
+- ✅ Complete API documentation
+
+### API Versions
+
+- **Toast API**: v1.0
+- **Web Controller API**: v1.0
+- **Plugin API**: v1.0
+
+---
+
+**Documentation Version**: 1.0
+**Last Updated**: 2025-12-10
+**Mixlar Version**: 1.5
