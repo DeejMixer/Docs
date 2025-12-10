@@ -65,7 +65,12 @@
           {
             "group": "API documentation",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "api-reference/index",
+              "api-reference/openapi",
+              "api-reference/plugin-api",
+              "api-reference/toast-api",
+              "api-reference/web-controller-api"
             ]
           },
           {
@@ -136,7 +141,12 @@
           {
             "group": "API documentation",
             "pages": [
-              "api-reference/introduction"
+              "api-reference/introduction",
+              "api-reference/index",
+              "api-reference/openapi",
+              "api-reference/plugin-api",
+              "api-reference/toast-api",
+              "api-reference/web-controller-api"
             ]
           },
           {
